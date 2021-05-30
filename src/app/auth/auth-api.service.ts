@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AuthRequest, Credentials } from './interfaces';
+import { AuthRequest, Tokens } from './interfaces';
 import { Observable } from 'rxjs';
 
 
@@ -14,10 +14,10 @@ export class AuthApiService {
     private http: HttpClient
   ) { }
 
-  getTokens(authRequest: AuthRequest): Promise<Credentials> {
+  signIn(authRequest: AuthRequest): Promise<Tokens> {
     const { username, password } = authRequest;
     const requestBody = { username, password };
-    return this.http.post<Credentials>(`${environment.apiUrl}/auth/signin`, requestBody).toPromise();
+    return this.http.post<Tokens>(`${environment.apiUrl}/auth/signin`, requestBody).toPromise();
   }
 
   // refreshToken(refreshToken: string): Observable<Credentials> {

@@ -1,4 +1,4 @@
-export interface Credentials {
+export interface Tokens {
   access: string;
   refresh: string;
 }
@@ -6,11 +6,12 @@ export interface Credentials {
 export interface AuthRequest{
   context: AuthContext;
   username: string;
+  email?: string;
   password: string;
-  remember: boolean;
+  remember?: boolean;
 }
 
 export const enum AuthContext {
-  login = 'login',
+  signIn = 'sign in',
   signUp = 'sign up'
 }

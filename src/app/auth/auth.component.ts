@@ -1,6 +1,8 @@
+import { AuthService } from './auth.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthApiService } from './auth-api.service';
 import { AuthContext, AuthRequest } from './interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -9,20 +11,26 @@ import { AuthContext, AuthRequest } from './interfaces';
 })
 export class AuthComponent implements OnInit {
   authRequest!: AuthRequest;
+  signInError = false;
 
-  constructor(private authApiSvc: AuthApiService) { }
+  constructor(private authSvc: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.authRequest = {
-      context: AuthContext.login,
+      context: AuthContext.signIn,
       username: '',
       password: '',
       remember: false
     };
   }
 
-  async onLogin(): Promise<void> {
-    const response = await this.authApiSvc.getTokens(this.authRequest);
+  async onSignin(): Promise<void> {
+    const signedIn = await this.authSvc.signIn(this.authRequest);
+    if (!signedIn) {
+      this.signInError = true;
+      return;
+    }
+    this.router.navigate(['']);
   }
 
 }

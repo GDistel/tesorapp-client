@@ -1,5 +1,7 @@
+import { ExpensesListsService } from './expenses-lists.service';
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { ExpensesList } from './interfaces';
 
 @Component({
   selector: 'app-expenses-lists',
@@ -7,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./expenses-lists.component.scss']
 })
 export class ExpensesListsComponent implements OnInit {
+  expensesLists!: ExpensesList[];
 
-  constructor(private authSvc: AuthService) { }
+  constructor(private authSvc: AuthService, private expensesListsSvc: ExpensesListsService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.expensesLists = await this.expensesListsSvc.getExpensesLists();
   }
 
   onSignOut(): void {

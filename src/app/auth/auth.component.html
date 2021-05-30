@@ -2,12 +2,12 @@
   <img src="assets/tesorapp_logo.png" alt="logo" class="logo">
   <div class="form">
     <mat-form-field>
-      <input matInput placeholder="Username">
+      <input matInput placeholder="Username" [(ngModel)]="authRequest.username">
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" placeholder="Password">
+      <input matInput type="password" placeholder="Password" [(ngModel)]="authRequest.password">
     </mat-form-field>
-    <button mat-raised-button color="primary" class="form-action full-width">login</button>
+    <button mat-raised-button color="primary" class="form-action full-width" (click)="onLogin()">login</button>
   </div>
 
 </div>

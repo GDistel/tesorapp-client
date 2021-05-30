@@ -35,5 +35,21 @@ $tesorapp-client-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import 'variables';
+
+// html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+  background-color: $color-grey-dark-1;
+  box-sizing: border-box;
+}
+
+[mat-raised-button], [mat-button], [mat-stroked-button] {
+  text-transform: uppercase;
+}
+
+.full-width {
+  width: 100%;
+}

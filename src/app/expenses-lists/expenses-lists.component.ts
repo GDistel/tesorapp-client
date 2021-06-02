@@ -21,4 +21,8 @@ export class ExpensesListsComponent implements OnInit {
     this.authSvc.signOut();
   }
 
+  async onRequestItems(): Promise<void> {
+    this.expensesLists = await this.expensesListsSvc.getExpensesLists();
+  }
+
 }

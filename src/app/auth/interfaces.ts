@@ -3,6 +3,12 @@ export interface Tokens {
   refresh: string;
 }
 
+export interface DecodedTokenPayload {
+  exp: number,
+  iat: number,
+  username: string
+}
+
 export interface AuthRequest{
   context: AuthContext;
   username: string;

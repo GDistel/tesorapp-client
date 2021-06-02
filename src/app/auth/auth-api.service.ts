@@ -20,9 +20,9 @@ export class AuthApiService {
     return this.http.post<Tokens>(`${environment.apiUrl}/auth/signin`, requestBody).toPromise();
   }
 
-  // refreshToken(refreshToken: string): Observable<Credentials> {
-  //   return this.http.post<Credentials>(
-  //     `${environment.apiUrl}/auth/refresh`, { refresh: refreshToken }
-  //   );
-  // }
+  refreshToken(refreshToken: string): Observable<Tokens> {
+    return this.http.get<Tokens>(
+      `${environment.apiUrl}/auth/refresh?token=${refreshToken}`
+    );
+  }
 }

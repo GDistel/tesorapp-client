@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-  HttpHeaders
-} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
-import { RefreshTokenService } from './refresh-token.service';
-import { TokensService } from './tokens.service';
-import { Tokens } from './interfaces';
+import { RefreshTokenService } from 'src/app/auth/refresh-token.service';
+import { TokensService } from 'src/app/auth/tokens.service';
+import { Tokens } from 'src/app/auth/interfaces';
 import { AuthService } from 'src/app/auth/auth.service';
 import { EMPTY } from 'rxjs';
 
@@ -24,53 +18,56 @@ export class JwtInterceptor implements HttpInterceptor {
   ){}
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    const tokens = this.tokensService.tokens;
-    if (this.isApiUrl(request.url)){
-        if (this.tokensService.hasRefreshTokenExpired()) {
-          this.authService.signOut();
-          return EMPTY;
-        }
-        if (this.refreshTokenService.tokenNeedsRefresh()) {
-            return this.handleByRefreshingAccessToken(request, next);
-        }
-        if (this.refreshTokenService.hasToWaitForRefresh()) {
-            return this.handleByWaitingForRefresh(request, next);
-        }
-        request = this.addTokenToRequest(tokens?.access as string, request);
-        return next.handle(request);
+    if (this.isAuthRouteOrThirdParty(request.url)) {
+      return next.handle(request);
     }
-    return next.handle(request);
+    if (this.tokensService.hasRefreshTokenExpired()) {
+      // the session expired
+      this.authService.signOut();
+      return EMPTY;
+    }
+    if (this.refreshTokenService.tokenNeedsRefresh()) {
+        return this.handleByRefreshingAccessToken(request, next);
+    }
+    if (this.refreshTokenService.hasToWaitForRefresh()) {
+        return this.handleByWaitingForRefresh(request, next);
+    }
+    const tokens = this.tokensService.tokens;
+    const authorizedRequest = this.addTokenToRequest(tokens?.access as string, request);
+    return next.handle(authorizedRequest);
   }
 
-  private handleByRefreshingAccessToken(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    return this.refreshTokenService.refreshAccessToken().pipe(
-      switchMap((tokens: Tokens | null) => {
+  private handleByRefreshingAccessToken(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Tokens | null>>{
+    const obs = this.refreshTokenService.refreshAccessToken();
+    return this.addTokenPipe(obs, request, next);
+
+  }
+
+  private handleByWaitingForRefresh(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Tokens | null>>{
+    const obs = this.refreshTokenService.waitForAccessTokenRefresh();
+    return this.addTokenPipe(obs, request, next);
+  }
+
+  private addTokenPipe(
+    obs: Observable<Tokens | null>, request: HttpRequest<any>, next: HttpHandler
+  ): Observable<HttpEvent<Tokens | null>> {
+    return obs.pipe(switchMap((tokens: Tokens | null) => {
         request = this.addTokenToRequest(tokens?.access as string, request);
         return next.handle(request);
-      }),
-    )
+    }));
   }
 
-  private handleByWaitingForRefresh(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    return this.refreshTokenService.waitForAccessTokenRefresh().pipe(
-      switchMap((tokens: Tokens | null) => {
-        request = this.addTokenToRequest(tokens?.access as string, request);
-        return next.handle(request);
-      })
-    )
-  }
-
-  private isApiUrl(url: string): boolean{
-    const isApiUrl: boolean = url.startsWith(environment.apiUrl);
+  private isAuthRouteOrThirdParty(url: string): boolean {
+    const isThirdPartyUrl: boolean = !url.startsWith(environment.apiUrl);
     const isSignInUrl: boolean = url.includes('auth/signin');
     const isTokenRefreshUrl: boolean = url.includes('auth/refresh');
-    return isApiUrl && !isSignInUrl && !isTokenRefreshUrl;
+    return isSignInUrl || isTokenRefreshUrl || isThirdPartyUrl ;
+
   }
 
   private addTokenToRequest(token: string, request: HttpRequest<any>): HttpRequest<any>{
     const headers = new HttpHeaders().set("Authorization", `Bearer ${token}`);
-    request = request.clone({ headers });
-    return request;
+    return request.clone({ headers });
   }
 
 }

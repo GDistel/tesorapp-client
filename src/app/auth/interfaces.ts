@@ -1,3 +1,5 @@
+import { AuthContext } from "./enums";
+
 export interface AuthRequest{
   context: AuthContext;
   username: string;
@@ -6,7 +8,13 @@ export interface AuthRequest{
   remember?: boolean;
 }
 
-export const enum AuthContext {
-  signIn = 'sign in',
-  signUp = 'sign up'
+export interface Tokens {
+  access: string;
+  refresh: string;
+}
+
+export interface DecodedTokenPayload {
+  exp: number,
+  iat: number,
+  username: string
 }

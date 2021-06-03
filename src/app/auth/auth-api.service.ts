@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { AuthRequest } from './interfaces';
 import { Observable } from 'rxjs';
-import { Tokens } from '../core/http/interfaces';
+import { Tokens } from './interfaces';
 
 
 @Injectable({

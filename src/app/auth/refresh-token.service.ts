@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { filter, first, tap } from "rxjs/operators";
+import { AuthApiService } from "src/app/auth/auth-api.service";
 import { Tokens } from "./interfaces";
 import { TokensService } from "./tokens.service";
 
@@ -8,13 +9,13 @@ import { TokensService } from "./tokens.service";
   providedIn: 'root'
 })
 export class RefreshTokenService {
-  public tokenRefreshInProgress = false;
+  private tokenRefreshInProgress = false;
   private refreshAccessTokenSubject = new BehaviorSubject<Tokens | null>(null);
 
-  constructor(private tokensService: TokensService) { }
+  constructor(private tokensService: TokensService, private authApiSvc: AuthApiService) { }
 
   public refreshAccessToken(): Observable<Tokens>{
-    return this.tokensService.doRefreshToken().pipe(
+    return this.requestTokenRefresh().pipe(
       tap((tokens: Tokens) => {
         this.tokensService.setTokens(tokens);
         this.tokenRefreshInProgress = false;
@@ -28,6 +29,11 @@ export class RefreshTokenService {
       filter(result => result !== null),
       first()
     );
+  }
+
+  public requestTokenRefresh(): Observable<Tokens> {
+    const tokens = this.tokensService.getTokensFromStorage() as Tokens;
+    return this.authApiSvc.refreshToken(tokens?.refresh);
   }
 
   public tokenNeedsRefresh(): boolean{

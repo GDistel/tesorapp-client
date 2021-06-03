@@ -1,7 +1,8 @@
-import { AuthService } from './auth.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthContext, AuthRequest } from './interfaces';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+import { AuthRequest } from './interfaces';
+import { AuthContext } from './enums';
 
 @Component({
   selector: 'app-auth',
@@ -17,8 +18,8 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.authRequest = {
       context: AuthContext.signIn,
-      username: 'user1',
-      password: 'Aa123###',
+      username: '',
+      password: '',
       remember: false
     };
   }

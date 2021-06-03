@@ -1,7 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthInterceptor } from './http/auth.interceptor';
+import { JwtInterceptor } from './http/jwt.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 
@@ -16,13 +16,11 @@ import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
+      useClass: JwtInterceptor,
       multi: true,
     },
   ],
-  exports: [
-    HttpClientModule
-  ]
+  exports: [HttpClientModule]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

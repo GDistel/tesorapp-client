@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AuthRequest, Tokens } from './interfaces';
+import { AuthRequest } from './interfaces';
 import { Observable } from 'rxjs';
+import { Tokens } from '../core/http/interfaces';
 
 
 @Injectable({
@@ -10,9 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthApiService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
   signIn(authRequest: AuthRequest): Promise<Tokens> {
     const { username, password } = authRequest;

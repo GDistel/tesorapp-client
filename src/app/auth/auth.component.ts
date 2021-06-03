@@ -1,6 +1,5 @@
 import { AuthService } from './auth.service';
 import { Component, OnInit } from '@angular/core';
-import { AuthApiService } from './auth-api.service';
 import { AuthContext, AuthRequest } from './interfaces';
 import { Router } from '@angular/router';
 
@@ -18,8 +17,8 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {
     this.authRequest = {
       context: AuthContext.signIn,
-      username: '',
-      password: '',
+      username: 'user1',
+      password: 'Aa123###',
       remember: false
     };
   }

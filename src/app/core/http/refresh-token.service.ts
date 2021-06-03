@@ -1,21 +1,20 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subject } from "rxjs";
-import { filter, first, map, tap } from "rxjs/operators";
-import { Tokens } from "src/app/auth/interfaces";
-import { TokensService } from "src/app/auth/tokens.service";
+import { BehaviorSubject, Observable } from "rxjs";
+import { filter, first, tap } from "rxjs/operators";
+import { Tokens } from "./interfaces";
+import { TokensService } from "./tokens.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RefreshTokenService {
-  public markedForRefresh = false;
   public tokenRefreshInProgress = false;
   private refreshAccessTokenSubject = new BehaviorSubject<Tokens | null>(null);
 
   constructor(private tokensService: TokensService) { }
 
   public refreshAccessToken(): Observable<Tokens>{
-    return this.tokensService.refreshToken().pipe(
+    return this.tokensService.doRefreshToken().pipe(
       tap((tokens: Tokens) => {
         this.tokensService.setTokens(tokens);
         this.tokenRefreshInProgress = false;
@@ -32,27 +31,11 @@ export class RefreshTokenService {
   }
 
   public tokenNeedsRefresh(): boolean{
-    if (this.markedForRefresh) {
-      return this.hasAccessTokenExpired() && !this.tokenRefreshInProgress;
-    }
-    return this.markedForRefresh && !this.tokenRefreshInProgress;
+    return this.tokensService.hasAccessTokenExpired() && !this.tokenRefreshInProgress;
   }
 
   public hasToWaitForRefresh(): boolean{
-    if (this.markedForRefresh) {
-      return this.hasAccessTokenExpired() && this.tokenRefreshInProgress;
-    }
-    return this.markedForRefresh && this.tokenRefreshInProgress;
-  }
-
-  private hasAccessTokenExpired(): boolean {
-    const tokens: Tokens = this.tokensService.getTokens();
-    return this.tokensService.hasTokenExpired(tokens.access);
-  }
-
-  public hasRefreshTokenExpired(): boolean {
-    const tokens: Tokens = this.tokensService.getTokens();
-    return this.tokensService.hasTokenExpired(tokens.refresh);
+    return this.tokensService.hasAccessTokenExpired() && this.tokenRefreshInProgress;
   }
 
 }

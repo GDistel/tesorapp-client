@@ -1,3 +1,4 @@
+import { TopNavService } from './../core/top-nav/top-nav.service';
 import { ExpensesListsService } from './expenses-lists.service';
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,18 +12,14 @@ import { ExpensesList } from './interfaces';
 export class ExpensesListsComponent implements OnInit {
   expensesLists!: ExpensesList[];
 
-  constructor(private authSvc: AuthService, private expensesListsSvc: ExpensesListsService) { }
+  constructor(
+    private topNavSvc: TopNavService,
+    private expensesListsSvc: ExpensesListsService
+  ) { }
 
   async ngOnInit(): Promise<void> {
-    this.expensesLists = await this.expensesListsSvc.getExpensesLists();
-  }
-
-  onSignOut(): void {
-    this.authSvc.signOut();
-  }
-
-  async onRequestItems(): Promise<void> {
-    this.expensesLists = await this.expensesListsSvc.getExpensesLists();
+    this.topNavSvc.getTopNavTitleSubject().next('Expenses lists');
+    this.expensesLists = (await this.expensesListsSvc.getExpensesLists()).items;
   }
 
 }

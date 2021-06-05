@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpensesListsComponent } from './expenses-lists.component';
+import { TopNavComponent } from './top-nav.component';
 
-describe('ExpensesListsComponent', () => {
-  let component: ExpensesListsComponent;
-  let fixture: ComponentFixture<ExpensesListsComponent>;
+describe('TopNavComponent', () => {
+  let component: TopNavComponent;
+  let fixture: ComponentFixture<TopNavComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ExpensesListsComponent ]
+      declarations: [ TopNavComponent ]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExpensesListsComponent);
+    fixture = TestBed.createComponent(TopNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

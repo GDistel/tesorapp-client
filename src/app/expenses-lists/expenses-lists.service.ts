@@ -1,6 +1,6 @@
 import { ExpensesListsApiService } from './expenses-lists-api.service';
 import { Injectable } from '@angular/core';
-import { ExpensesList } from './interfaces';
+import { ExpensesList, PagedResponse } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class ExpensesListsService {
 
   constructor(private expensesListsApiSvc: ExpensesListsApiService) { }
 
-  getExpensesLists(): Promise<ExpensesList[]> {
+  getExpensesLists(): Promise<PagedResponse<ExpensesList[]>> {
     return this.expensesListsApiSvc.getExpensesLists();
   }
 }

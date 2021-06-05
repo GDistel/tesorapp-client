@@ -2,12 +2,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { JwtInterceptor } from './http/jwt.interceptor';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
+import { TopNavComponent } from './top-nav/top-nav.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
-  imports: [HttpClientModule, RouterModule, MatSnackBarModule],
+  declarations: [TopNavComponent],
+  imports: [HttpClientModule, RouterModule, SharedModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -20,7 +22,7 @@ import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
       multi: true,
     },
   ],
-  exports: [HttpClientModule]
+  exports: [HttpClientModule, TopNavComponent]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

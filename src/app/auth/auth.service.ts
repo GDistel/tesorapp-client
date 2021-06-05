@@ -23,7 +23,7 @@ export class AuthService {
       this.tokensSvc.setTokens(tokens);
       return !!tokens;
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
     return false;
   }
@@ -31,7 +31,7 @@ export class AuthService {
   public signOut(): void {
     this.tokensSvc.setTokens(null);
     this.router.navigate(['/', 'signin']);
-    this.snackBar.open('Your session has expired', 'close',  { duration: 2000 });
+    this.snackBar.open('Your have been logged out', '', { duration: 2000 });
   }
 
   public isUserAuthenticated(): boolean {

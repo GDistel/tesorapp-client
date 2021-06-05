@@ -1,1 +1,44 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '~@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$tesorapp-client-primary: mat.define-palette(mat.$yellow-palette, A400);
+$tesorapp-client-accent: mat.define-palette(mat.$orange-palette, A200);
+
+// The warn palette is optional (defaults to red).
+$tesorapp-client-warn: mat.define-palette(mat.$red-palette);
+
+$tesorapp-typography: mat.define-typography-config(
+    $font-family: 'Nunito'
+);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$tesorapp-client-theme: mat.define-light-theme((
+  color: (
+    primary: $tesorapp-client-primary,
+    accent: $tesorapp-client-accent,
+    warn: $tesorapp-client-warn,
+  ),
+  typography: $tesorapp-typography
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($tesorapp-client-theme);
+
+$color-primary: mat.get-color-from-palette($tesorapp-client-primary);
+// $color-accent: mat.color($tesorapp-client-accent);
+// $color-warn: mat.color($tesorapp-client-warn);
 $color-grey-dark-1: rgb(52,61,70);

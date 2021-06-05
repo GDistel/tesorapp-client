@@ -1,0 +1,11 @@
+@import 'src/variables';
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .mat-menu-content{
+  background-color: $color-primary;
+  color: $color-grey-dark-1;
+}

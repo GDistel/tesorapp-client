@@ -10,3 +10,10 @@ export interface ExpensesList {
   expenses: any[],
   participants: any[]
 }
+
+export interface PagedResponse<T> {
+  items: T;
+  totalCount: number;
+  page: number;
+  limit: number;
+}

@@ -27,10 +27,10 @@ export class JwtInterceptor implements HttpInterceptor {
       return EMPTY;
     }
     if (this.refreshTokenService.tokenNeedsRefresh()) {
-        return this.handleByRefreshingAccessToken(request, next);
+      return this.handleByRefreshingAccessToken(request, next);
     }
     if (this.refreshTokenService.hasToWaitForRefresh()) {
-        return this.handleByWaitingForRefresh(request, next);
+      return this.handleByWaitingForRefresh(request, next);
     }
     const tokens = this.tokensService.tokens;
     const authorizedRequest = this.addTokenToRequest(tokens?.access as string, request);
@@ -52,8 +52,8 @@ export class JwtInterceptor implements HttpInterceptor {
     obs: Observable<Tokens | null>, request: HttpRequest<any>, next: HttpHandler
   ): Observable<HttpEvent<Tokens | null>> {
     return obs.pipe(switchMap((tokens: Tokens | null) => {
-        request = this.addTokenToRequest(tokens?.access as string, request);
-        return next.handle(request);
+      request = this.addTokenToRequest(tokens?.access as string, request);
+      return next.handle(request);
     }));
   }
 

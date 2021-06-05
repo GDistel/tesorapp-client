@@ -39,6 +39,7 @@ $tesorapp-client-theme: mat.define-light-theme((
 @include mat.all-component-themes($tesorapp-client-theme);
 
 $color-primary: mat.get-color-from-palette($tesorapp-client-primary);
-// $color-accent: mat.color($tesorapp-client-accent);
-// $color-warn: mat.color($tesorapp-client-warn);
+$color-accent: mat.get-color-from-palette($tesorapp-client-accent);
+$color-warn: mat.get-color-from-palette($tesorapp-client-warn);
+
 $color-grey-dark-1: rgb(52,61,70);

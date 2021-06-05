@@ -1,11 +1,21 @@
 <mat-toolbar color="primary" class="nav-container">
-  <span>{{ title | titlecase }}</span>
+  <div class="back-link-page-title-container">
+    <button *ngIf="backLink" mat-icon-button [routerLink]="backLink">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <span>{{ pageTitle }}</span>
+  </div>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>account_circle</mat-icon>
+    <span>{{ username }}</span>
+  </button>
+  <mat-divider></mat-divider>
   <button mat-menu-item (click)="onSignOut()">
     <mat-icon>logout</mat-icon>
     <span>Sign out</span>

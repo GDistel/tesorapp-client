@@ -1,6 +1,7 @@
-import { TopNavService } from './top-nav.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { TopNavService } from './top-nav.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -10,14 +11,24 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class TopNavComponent implements OnInit, OnDestroy {
   private topNavTitleSubscription!: Subscription;
-  public title = 'Tesorapp';
+  private topNavBackLinkSubscription!: Subscription;
+  public pageTitle = 'Tesorapp';
+  public backLink!: string | null;
+  public username!: string;
 
   constructor(private topNavSvc: TopNavService, private authSvc: AuthService) { }
 
   ngOnInit(): void {
-    this.topNavTitleSubscription = this.topNavSvc.getTopNavTitleSubject().subscribe({
-      next: title => this.title = title
-    });
+    this.setUser();
+    this.topNavTitleSubscription = this.topNavSvc.getTopNavTitleSubject()
+      .pipe(tap(_ => this.setUser()))
+      .subscribe(title => this.pageTitle = title as string);
+    this.topNavBackLinkSubscription = this.topNavSvc.getTopNavBackLinkSubject()
+      .subscribe(link => this.backLink = link);
+  }
+
+  setUser(): void {
+    this.username = this.authSvc.getUser();
   }
 
   onSignOut(): void {
@@ -26,6 +37,7 @@ export class TopNavComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.topNavTitleSubscription.unsubscribe();
+    this.topNavBackLinkSubscription.unsubscribe();
   }
 
 }

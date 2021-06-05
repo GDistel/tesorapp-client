@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   title = 'Tesorapp';
   hideTopNav = false;
 
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -19,7 +18,7 @@ export class AppComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe( event => {
         const navEndEvent = event as NavigationEnd;
-        this.hideTopNav = navEndEvent.url === '/signin'
+        this.hideTopNav = navEndEvent.url.includes('/signin');
       });
   }
 }

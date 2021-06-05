@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./expenses-lists/expenses-lists.module').then(m => m.ExpensesListsModule)
   },
   {
+    path: 'expenses-list',
+    loadChildren: () => import('./expenses-list/expenses-list.module').then(m => m.ExpensesListModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     redirectTo: 'expenses-lists'

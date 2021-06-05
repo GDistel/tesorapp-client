@@ -6,10 +6,15 @@ import { Subject } from 'rxjs';
 })
 export class TopNavService {
   private topNavTitleSubject = new Subject<string>();
+  private topNavBackLinkSubject = new Subject<string | null>();
 
   constructor() { }
 
   public getTopNavTitleSubject(): Subject<string> {
     return this.topNavTitleSubject;
+  }
+
+  public getTopNavBackLinkSubject(): Subject<string | null> {
+    return this.topNavBackLinkSubject;
   }
 }

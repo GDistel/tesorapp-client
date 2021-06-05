@@ -1,13 +1,14 @@
 <div class="auth-form-container mat-elevation-z12">
   <img src="assets/tesorapp_logo.png" alt="logo" class="logo">
   <div class="form">
-    <mat-form-field>
-      <input matInput placeholder="Username" [(ngModel)]="authRequest.username">
+    <mat-form-field color="primary">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="authRequest.username">
     </mat-form-field>
-    <mat-form-field>
-      <input matInput type="password" placeholder="Password" [(ngModel)]="authRequest.password">
+    <mat-form-field color="primary">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" [(ngModel)]="authRequest.password">
     </mat-form-field>
     <button mat-raised-button color="primary" class="form-action full-width" (click)="onSignin()">sign in</button>
   </div>
-
 </div>

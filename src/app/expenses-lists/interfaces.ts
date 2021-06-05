@@ -6,14 +6,5 @@ export interface ExpensesList {
   description: string,
   status: ExpensesListStatus,
   currency: Currencies,
-  userId: number,
-  expenses: any[],
-  participants: any[]
-}
-
-export interface PagedResponse<T> {
-  items: T;
-  totalCount: number;
-  page: number;
-  limit: number;
+  userId: number
 }

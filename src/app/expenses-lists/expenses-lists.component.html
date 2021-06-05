@@ -1,5 +1,5 @@
 <mat-list class="expenses-list">
-  <mat-list-item *ngFor="let expenseList of expensesLists" class="expenses-list-item">
+  <mat-list-item *ngFor="let expenseList of expensesLists" class="expenses-list-item" (click)="onListItemClicked(expenseList)">
     <h4 mat-line>{{ expenseList.name }}</h4>
     <span mat-line>{{ expenseList.description }}</span>
     <mat-icon color="primary" class="liste-item-icon">visibility</mat-icon>

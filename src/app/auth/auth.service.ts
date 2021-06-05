@@ -21,6 +21,7 @@ export class AuthService {
     try {
       const tokens = await this.authApiSvc.signIn(authRequest);
       this.tokensSvc.setTokens(tokens);
+      this.snackBar.open('You have successfully logged in', '', { duration: 3000 });
       return !!tokens;
     } catch (error) {
       console.error(error);
@@ -31,10 +32,14 @@ export class AuthService {
   public signOut(): void {
     this.tokensSvc.setTokens(null);
     this.router.navigate(['/', 'signin']);
-    this.snackBar.open('Your have been logged out', '', { duration: 2000 });
+    this.snackBar.open('Your have been logged out', '', { duration: 3000 });
   }
 
   public isUserAuthenticated(): boolean {
     return !!this.tokensSvc.tokens;
+  }
+
+  public getUser(): string {
+    return this.tokensSvc.accessTokenPayload?.username;
   }
 }

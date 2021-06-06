@@ -8,7 +8,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ItemsListComponent implements OnInit {
   @Input() items!: any[];
   @Output() itemClicked = new EventEmitter<any>();
-  @Output() addBtnClicked = new EventEmitter<void>();
 
   constructor() { }
 
@@ -17,10 +16,6 @@ export class ItemsListComponent implements OnInit {
 
   onListItemClicked(listItem: any): void {
     this.itemClicked.emit(listItem);
-  }
-
-  onAddBtnClicked(): void {
-    this.addBtnClicked.emit();
   }
 
 }

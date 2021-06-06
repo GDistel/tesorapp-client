@@ -1,8 +1,9 @@
 import { ExpensesListsApiService } from './expenses-lists-api.service';
 import { Injectable } from '@angular/core';
 import { ExpensesList } from './interfaces';
-import { PagedResponse } from 'src/app/shared';
+import { BottomNavAction, PagedResponse } from 'src/app/shared';
 import { Subject } from 'rxjs';
+import { ExpensesListsAction } from './enums';
 
 
 @Injectable({
@@ -18,5 +19,11 @@ export class ExpensesListsService {
 
   getExpensesList(id: string): Promise<ExpensesList> {
     return this.expensesListsApiSvc.getExpensesList(id);
+  }
+
+  getNavActions(): BottomNavAction[] {
+    return [
+      { id: ExpensesListsAction.add, icon: 'add' }
+    ];
   }
 }

@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module';
 import { ItemsListComponent } from './items-list/items-list.component';
+import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
 
 
 @NgModule({
   declarations: [
-    ItemsListComponent
+    ItemsListComponent,
+    BottomNavComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { ItemsListComponent } from './items-list/items-list.component';
     CommonModule,
     MaterialModule,
     FormsModule,
-    ItemsListComponent
+    ItemsListComponent,
+    BottomNavComponent
   ]
 })
 export class SharedModule { }

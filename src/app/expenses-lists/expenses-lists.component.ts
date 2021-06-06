@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TopNavService } from './../core/top-nav/top-nav.service';
-import { IListItem } from './../shared';
+import { BottomNavAction, IListItem } from './../shared';
+import { ExpensesListsAction } from './enums';
 import { ExpensesListsService } from './expenses-lists.service';
 import { ExpensesList } from './interfaces';
 
@@ -13,6 +14,7 @@ import { ExpensesList } from './interfaces';
 export class ExpensesListsComponent implements OnInit {
   expensesLists!: ExpensesList[];
   listItems!: IListItem[];
+  bottomNavActions!: BottomNavAction[];
 
   constructor(
     private router: Router,
@@ -21,6 +23,7 @@ export class ExpensesListsComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.bottomNavActions = this.expensesListsSvc.getNavActions();
     this.topNavSvc.getTopNavTitleSubject().next('Expenses lists');
     this.topNavSvc.getTopNavBackLinkSubject().next(null);
     this.expensesLists = (await this.expensesListsSvc.getExpensesLists()).items;
@@ -36,8 +39,8 @@ export class ExpensesListsComponent implements OnInit {
     this.router.navigate(['/', 'expenses-list', listItem.id]);
   }
 
-  onAddNewExpensesList(): void {
-    console.log('Add new expenses list btn clicked')
+  onBottomNavActionClicked(id: ExpensesListsAction): void {
+
   }
 
 }

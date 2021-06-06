@@ -12,3 +12,8 @@ export interface IListItem {
   description: string;
   icon: string;
 }
+
+export interface BottomNavAction {
+  id: number;
+  icon: string;
+}

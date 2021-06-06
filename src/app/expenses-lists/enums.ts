@@ -9,3 +9,7 @@ export enum Currencies {
   EUR = 'EUR',
   USD = 'USD'
 };
+
+export const enum ExpensesListsAction {
+  add = 0,
+}

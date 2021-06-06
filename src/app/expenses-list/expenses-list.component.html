@@ -1,3 +1,7 @@
 <app-items-list
-  [items]="listItems" (itemClicked)="onListItemClicked($event)" (addBtnClicked)="onAddNewExpense()">
+  [items]="listItems" (itemClicked)="onListItemClicked($event)">
 </app-items-list>
+
+<app-bottom-nav
+  [actions]="bottomNavActions" (actionClicked)="onBottomNavActionClicked($event)">
+</app-bottom-nav>

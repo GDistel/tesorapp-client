@@ -5,7 +5,8 @@ import { ExpensesListsService } from './../expenses-lists/expenses-lists.service
 import { TopNavService } from './../core/top-nav/top-nav.service';
 import { ExpensesList } from '../expenses-lists/interfaces';
 import { Expense } from './interfaces';
-import { IListItem } from '../shared';
+import { BottomNavAction, IListItem } from '../shared';
+import { ExpensesListAction } from './enums';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class ExpensesListComponent implements OnInit {
   expensesList!: ExpensesList;
   expenses!: Expense[];
   listItems!: IListItem[];
+  bottomNavActions!: BottomNavAction[];
 
   constructor(
     private topNavSvc: TopNavService,
@@ -27,6 +29,7 @@ export class ExpensesListComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
+    this.bottomNavActions = this.expensesListSvc.getNavActions();
     this.topNavSvc.getTopNavBackLinkSubject().next('/expenses-lists');
     const expensesListId = this.route.snapshot.params.id;
     this.expensesList = await this.expensesListsSvc.getExpensesList(expensesListId);
@@ -35,7 +38,7 @@ export class ExpensesListComponent implements OnInit {
     this.listItems = this.expenses.map(expense => ({
       id: expense.id,
       name: expense.name,
-      description: `${expense.amount} ${this.expensesList.currency} - ${(new Date(expense.date)).toLocaleDateString()}`,
+      description: `${this.expensesList.currency} ${expense.amount} - ${(new Date(expense.date)).toLocaleDateString()}`,
       icon: 'receipt_long'
     }));
   }
@@ -45,7 +48,11 @@ export class ExpensesListComponent implements OnInit {
   }
 
   onAddNewExpense(): void {
-    console.log('Add new expense btn clicked')
+    console.log('Add new expense btn clicked');
+  }
+
+  onBottomNavActionClicked(id: ExpensesListAction): void {
+
   }
 
 }

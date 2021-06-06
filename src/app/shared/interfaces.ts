@@ -5,3 +5,10 @@ export interface PagedResponse<T> {
   page: number;
   limit: number;
 }
+
+export interface IListItem {
+  id: number;
+  name: string;
+  description: string;
+  icon: string;
+}

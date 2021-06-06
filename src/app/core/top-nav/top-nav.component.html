@@ -1,10 +1,8 @@
 <mat-toolbar color="primary" class="nav-container">
-  <div class="back-link-page-title-container">
-    <button *ngIf="backLink" mat-icon-button [routerLink]="backLink">
-      <mat-icon>arrow_back_ios</mat-icon>
-    </button>
-    <span>{{ pageTitle }}</span>
-  </div>
+  <button *ngIf="backLink; else appLogo" mat-icon-button [routerLink]="backLink">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+  <span>{{ pageTitle }}</span>
   <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon">
     <mat-icon>menu</mat-icon>
   </button>
@@ -21,3 +19,7 @@
     <span>Sign out</span>
   </button>
 </mat-menu>
+
+<ng-template #appLogo>
+  <img src="assets/tesorapp_logo.svg" alt="logo" class="toolbar-app-logo">
+</ng-template>

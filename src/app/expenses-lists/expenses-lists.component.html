@@ -1,11 +1,3 @@
-<mat-list class="expenses-list">
-  <mat-list-item *ngFor="let expenseList of expensesLists" class="expenses-list-item" (click)="onListItemClicked(expenseList)">
-    <h4 mat-line>{{ expenseList.name }}</h4>
-    <span mat-line>{{ expenseList.description }}</span>
-    <mat-icon color="primary" class="liste-item-icon">visibility</mat-icon>
-  </mat-list-item>
-</mat-list>
-
-<div class="list-actions">
-  <button mat-fab class="list-actions-btn" color="primary"><mat-icon>add</mat-icon></button>
-</div>
+<app-items-list
+  [items]="listItems" (itemClicked)="onListItemClicked($event)" (addBtnClicked)="onAddNewExpensesList()">
+</app-items-list>

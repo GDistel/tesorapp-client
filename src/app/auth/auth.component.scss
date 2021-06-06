@@ -1,23 +1,28 @@
 @import 'src/variables';
+.container {
+  height: 100vh;
+  background: transparent;
+  overflow-y: hidden;
+}
 
 .auth-form-container {
-  max-width: 350px;
+  max-width: 304px;
   padding: 32px;
   border: 4px solid $color-primary;
   background-color: rgba($color-primary, .1);
   margin: auto;
-  margin-top: 10vh;
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .logo {
-  width: 6rem;
+  width: 8rem;
 }
 
 .form {
-  margin-top: 3.2rem;
+  margin-top: 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -10,6 +10,10 @@ import { ItemsListComponent } from './items-list/items-list.component';
   declarations: [
     ItemsListComponent
   ],
+  imports: [
+    CommonModule,
+    MaterialModule
+  ],
   exports: [
     CommonModule,
     MaterialModule,

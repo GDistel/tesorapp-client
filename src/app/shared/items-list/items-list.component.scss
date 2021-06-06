@@ -1,0 +1,53 @@
+@import 'src/variables';
+
+.container {
+  position: relative;
+}
+
+.list {
+  padding: 8px;
+  height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none; // Chrome, safari, opera
+  }
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  .list-item {
+    cursor: pointer;
+    width: 100%;
+    display: block;
+    border: 1px solid $color-primary;
+    color: $color-primary !important;
+    transition: all .3s;
+    &:hover {
+      background-color: rgba($color-primary, .1);
+    }
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+}
+
+.list-actions {
+  width: 100%;
+  padding: 8px 0 8px 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba($color-grey-dark-1, .1), rgba($color-grey-dark-1, 1));
+  position: absolute;
+  .list-actions-btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all .3s;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

@@ -6,14 +6,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './bottom-nav.component.html',
   styleUrls: ['./bottom-nav.component.scss']
 })
-export class BottomNavComponent implements OnInit {
+export class BottomNavComponent {
   @Input() actions!: BottomNavAction[];
   @Output() actionClicked = new EventEmitter<number>();
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onActionClicked(id: number): void {
     this.actionClicked.emit(id);

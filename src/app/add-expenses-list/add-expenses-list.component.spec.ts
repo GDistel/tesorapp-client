@@ -10,7 +10,7 @@ describe('AddExpensesListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ AddExpensesListComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

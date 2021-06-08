@@ -5,14 +5,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent {
   @Input() items!: any[];
   @Output() itemClicked = new EventEmitter<any>();
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onListItemClicked(listItem: any): void {
     this.itemClicked.emit(listItem);

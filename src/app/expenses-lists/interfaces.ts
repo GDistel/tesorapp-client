@@ -8,3 +8,15 @@ export interface ExpensesList {
   currency: Currencies,
   userId: number
 }
+
+export interface CreateExpensesListRequest {
+  name: string,
+  description: string,
+  currency: Currencies
+}
+
+export interface AddExpensesListParticipantRequest {
+  name: string;
+  linkToUserId?: number;
+  listId: number;
+}

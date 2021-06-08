@@ -7,8 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
+    path: 'user-account',
+    loadChildren: () => import('./user-account/user-account.module').then(m => m.UserAccountModule)
+  },
+  {
     path: 'expenses-lists',
     loadChildren: () => import('./expenses-lists/expenses-lists.module').then(m => m.ExpensesListsModule)
+  },
+  {
+    path: 'add-expenses-list',
+    loadChildren: () => import('./add-expenses-list/add-expenses-list.module').then(m => m.AddExpensesListModule)
   },
   {
     path: 'expenses-list',

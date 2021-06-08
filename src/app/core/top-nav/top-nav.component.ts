@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TopNavService } from './top-nav.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-nav',
@@ -16,7 +17,11 @@ export class TopNavComponent implements OnInit, OnDestroy {
   public backLink!: string | null;
   public username!: string;
 
-  constructor(private topNavSvc: TopNavService, private authSvc: AuthService) { }
+  constructor(
+    private router: Router,
+    private topNavSvc: TopNavService,
+    private authSvc: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.setUser();
@@ -33,6 +38,11 @@ export class TopNavComponent implements OnInit, OnDestroy {
 
   onSignOut(): void {
     this.authSvc.signOut();
+  }
+
+  onGoToUserAccount(): void {
+    this.backLink = this.router.url;
+    this.router.navigate(['user-account']);
   }
 
   ngOnDestroy(): void {

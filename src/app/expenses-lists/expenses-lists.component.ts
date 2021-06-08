@@ -40,7 +40,9 @@ export class ExpensesListsComponent implements OnInit {
   }
 
   onBottomNavActionClicked(id: ExpensesListsAction): void {
-
+    if (id === ExpensesListsAction.add) {
+      this.router.navigate(['/', 'add-expenses-list']);
+    }
   }
 
 }

@@ -24,7 +24,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   private errorHandler(error: HttpErrorResponse): Observable<HttpEvent<any>> {
     const errorResponse = error?.error?.message || error?.statusText;
-    this.snackBar.open(errorResponse, 'close',  { duration: 2000 });
+    this.snackBar.open(errorResponse, 'close',  { duration: 4000 });
     return throwError(errorResponse);
   }
 

@@ -1,6 +1,6 @@
 import { ExpensesListsApiService } from './expenses-lists-api.service';
 import { Injectable } from '@angular/core';
-import { ExpensesList } from './interfaces';
+import { AddExpensesListParticipantRequest, CreateExpensesListRequest, ExpensesList } from './interfaces';
 import { BottomNavAction, PagedResponse } from 'src/app/shared';
 import { Subject } from 'rxjs';
 import { ExpensesListsAction } from './enums';
@@ -12,6 +12,14 @@ import { ExpensesListsAction } from './enums';
 export class ExpensesListsService {
 
   constructor(private expensesListsApiSvc: ExpensesListsApiService) { }
+
+  createExpensesList(req: CreateExpensesListRequest): Promise<ExpensesList> {
+    return this.expensesListsApiSvc.createExpensesList(req);
+  }
+
+  addExpensesListParticipant(req: AddExpensesListParticipantRequest): Promise<void> {
+    return this.expensesListsApiSvc.addExpensesListParticipant(req);
+  }
 
   getExpensesLists(): Promise<PagedResponse<ExpensesList[]>> {
     return this.expensesListsApiSvc.getExpensesLists();

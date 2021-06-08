@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ExpensesList } from './interfaces';
+import { AddExpensesListParticipantRequest, CreateExpensesListRequest, ExpensesList } from './interfaces';
 import { PagedResponse } from 'src/app/shared';
 
 
@@ -12,6 +12,16 @@ export class ExpensesListsApiService {
   constructor(
     private http: HttpClient
   ) { }
+
+  addExpensesListParticipant(req: AddExpensesListParticipantRequest): Promise<void> {
+    return this.http.post<void>(
+      `${environment.apiUrl}/expenses-list/${req.listId}/participants`, { name: req.name }
+    ).toPromise();
+  }
+
+  createExpensesList(req: CreateExpensesListRequest): Promise<ExpensesList> {
+    return this.http.post<ExpensesList>(`${environment.apiUrl}/expenses-list`, req).toPromise();
+  }
 
   getExpensesLists(): Promise<PagedResponse<ExpensesList[]>> {
     const params = { page: 1, limit: 10 };

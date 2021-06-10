@@ -47,12 +47,10 @@ export class ExpensesListComponent implements OnInit {
     // this.router.navigate(['/', 'expenses-list', listItem.id]);
   }
 
-  onAddNewExpense(): void {
-    console.log('Add new expense btn clicked');
-  }
-
   onBottomNavActionClicked(id: ExpensesListAction): void {
-
+    if (id === ExpensesListAction.add) {
+      this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'add-expense']);
+    }
   }
 
 }

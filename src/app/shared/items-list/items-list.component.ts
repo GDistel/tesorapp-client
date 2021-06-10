@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-items-list',
@@ -7,12 +7,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ItemsListComponent {
   @Input() items!: any[];
+  @Input() actionIcon = 'delete';
+  @Input() actionColor: 'primary' | 'accent' | 'warn' = 'primary';
+  @Input() toggleAction = false;
   @Output() itemClicked = new EventEmitter<any>();
+  @Output() itemActionClicked = new EventEmitter<any>();
 
   constructor() { }
 
   onListItemClicked(listItem: any): void {
     this.itemClicked.emit(listItem);
+  }
+
+  onItemAction(item: any, event: MouseEvent): void {
+    event.stopPropagation();
+    this.itemActionClicked.emit(item);
   }
 
 }

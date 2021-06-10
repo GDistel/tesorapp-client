@@ -4,7 +4,10 @@
     <mat-list-item *ngFor="let item of items" class="list-item" (click)="onListItemClicked(item)">
       <h4 mat-line>{{ item.name }}</h4>
       <span mat-line>{{ item.description }}</span>
-      <mat-icon color="primary" class="list-item-icon">{{ item.icon }}</mat-icon>
+      <mat-icon [color]="toggleAction ? actionColor : 'primary'" class="list-item-icon"
+        (click)="onItemAction(item, $event)">
+        {{ toggleAction ? actionIcon : item.icon }}
+      </mat-icon>
     </mat-list-item>
   </mat-list>
 

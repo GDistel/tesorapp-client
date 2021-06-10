@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { ItemsListComponent } from './items-list/items-list.component';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
   declarations: [
     ItemsListComponent,
-    BottomNavComponent
+    BottomNavComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,9 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
     MaterialModule,
     FormsModule,
     ItemsListComponent,
-    BottomNavComponent
-  ]
+    BottomNavComponent,
+    ConfirmationDialogComponent
+  ],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class SharedModule { }

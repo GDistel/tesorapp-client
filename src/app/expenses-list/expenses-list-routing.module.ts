@@ -8,7 +8,11 @@ const routes: Routes = [
     path: ':id',
     component: ExpensesListComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: ':id/add-expense',
+    loadChildren: () => import('../add-expense/add-expense.module').then(m => m.AddExpenseModule)
+  },
 ];
 
 @NgModule({

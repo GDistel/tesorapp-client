@@ -31,7 +31,12 @@ export class ExpensesListsService {
 
   getNavActions(): BottomNavAction[] {
     return [
-      { id: ExpensesListsAction.add, icon: 'add' }
+      { id: ExpensesListsAction.delete, icon: 'delete' },
+      { id: ExpensesListsAction.add, icon: 'add' },
     ];
+  }
+
+  deleteExpensesList(id: number): Promise<void> {
+    return this.expensesListsApiSvc.deleteExpensesList(id);
   }
 }

@@ -31,4 +31,8 @@ export class ExpensesListsApiService {
   getExpensesList(id: string): Promise<ExpensesList> {
     return this.http.get<ExpensesList>(`${environment.apiUrl}/expenses-list/${id}`).toPromise();
   }
+
+  deleteExpensesList(id: number): Promise<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/expenses-list/${id}`).toPromise();
+  }
 }

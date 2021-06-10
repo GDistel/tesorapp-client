@@ -63,3 +63,8 @@ body {
 .mat-button-disabled {
   color: gray !important;
 }
+
+[mat-dialog-actions] {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -18,4 +18,8 @@ export class ExpensesListApiService {
       `${environment.apiUrl}/expenses-list/${expensesListId}/expenses`, { params }
     ).toPromise();
   }
+
+  deleteExpense(id: number): Promise<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/expense/${id}`).toPromise();
+  }
 }

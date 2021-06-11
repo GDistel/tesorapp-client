@@ -10,7 +10,7 @@ describe('AddExpenseComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ AddExpenseComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

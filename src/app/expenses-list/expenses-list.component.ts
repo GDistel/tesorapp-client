@@ -7,6 +7,8 @@ import { ExpensesList } from '../expenses-lists/interfaces';
 import { Expense } from './interfaces';
 import { BottomNavAction, IListItem } from '../shared';
 import { ExpensesListAction } from './enums';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -19,13 +21,15 @@ export class ExpensesListComponent implements OnInit {
   expenses!: Expense[];
   listItems!: IListItem[];
   bottomNavActions!: BottomNavAction[];
+  toggleDeleteAction = false;
 
   constructor(
     private topNavSvc: TopNavService,
     private route: ActivatedRoute,
     private router: Router,
     private expensesListsSvc: ExpensesListsService,
-    private expensesListSvc: ExpensesListService
+    private expensesListSvc: ExpensesListService,
+    public dialog: MatDialog
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -34,7 +38,11 @@ export class ExpensesListComponent implements OnInit {
     const expensesListId = this.route.snapshot.params.id;
     this.expensesList = await this.expensesListsSvc.getExpensesList(expensesListId);
     this.topNavSvc.getTopNavTitleSubject().next(this.expensesList?.name);
-    this.expenses = (await this.expensesListSvc.getExpenses(expensesListId)).items;
+    await this.setExpenses();
+  }
+
+  async setExpenses(): Promise<void> {
+    this.expenses = (await this.expensesListSvc.getExpenses(this.expensesList.id.toString())).items;
     this.listItems = this.expenses.map(expense => ({
       id: expense.id,
       name: expense.name,
@@ -50,7 +58,22 @@ export class ExpensesListComponent implements OnInit {
   onBottomNavActionClicked(id: ExpensesListAction): void {
     if (id === ExpensesListAction.add) {
       this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'add-expense']);
+    } else if (id === ExpensesListAction.delete) {
+      this.toggleDeleteAction = !this.toggleDeleteAction;
     }
+  }
+
+  async onItemActionClicked(listItem: IListItem): Promise<void> {
+    const dialogBody = 'Are you sure that you want to delete the selected expense?';
+    this.dialog.open(ConfirmationDialogComponent, { data: { title: 'Delete expense', body: dialogBody } })
+      .afterClosed()
+      .subscribe(async result => {
+        if (!result) {
+          return;
+        }
+        await this.expensesListSvc.deleteExpense(listItem.id);
+        await this.setExpenses();
+      });
   }
 
 }

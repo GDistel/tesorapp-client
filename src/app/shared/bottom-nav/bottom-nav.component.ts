@@ -9,10 +9,12 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class BottomNavComponent {
   @Input() actions!: BottomNavAction[];
   @Output() actionClicked = new EventEmitter<number>();
+  activeAction = -1;
 
   constructor() { }
 
   onActionClicked(id: number): void {
+    this.activeAction = this.activeAction === id ? -1 : id;
     this.actionClicked.emit(id);
   }
 

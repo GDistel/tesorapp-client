@@ -1,5 +1,5 @@
 <div class="actions">
   <button *ngFor="let action of actions" mat-fab color="primary" (click)="onActionClicked(action.id)">
-    <mat-icon>{{action.icon}}</mat-icon>
+    <mat-icon>{{ (activeAction === action.id) && action.activeIcon ? action.activeIcon : action.icon }}</mat-icon>
   </button>
 </div>

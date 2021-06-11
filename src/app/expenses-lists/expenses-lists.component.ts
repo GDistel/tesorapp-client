@@ -52,11 +52,6 @@ export class ExpensesListsComponent implements OnInit {
       this.router.navigate(['/', 'add-expenses-list']);
     } else if (id === ExpensesListsAction.delete) {
       this.toggleDeleteAction = !this.toggleDeleteAction;
-      const deleteAction = this.bottomNavActions.find(x => x.id === ExpensesListsAction.delete);
-      if (!deleteAction) {
-        return;
-      }
-      deleteAction.icon = this.toggleDeleteAction ? 'clear' : 'delete'
     }
   }
 

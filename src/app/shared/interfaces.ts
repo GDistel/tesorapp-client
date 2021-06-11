@@ -16,4 +16,5 @@ export interface IListItem {
 export interface BottomNavAction {
   id: number;
   icon: string;
+  activeIcon?: string;
 }

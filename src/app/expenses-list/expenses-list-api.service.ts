@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { PagedResponse } from 'src/app/shared';
-import { ExpensesList } from '../expenses-lists/interfaces';
-import { Expense } from './interfaces';
+import { Participant, Expense, CreateExpenseRequest } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,17 @@ export class ExpensesListApiService {
     ).toPromise();
   }
 
+  createExpense(req: CreateExpenseRequest): Promise<Expense> {
+    return this.http.post<Expense>(
+      `${environment.apiUrl}/expenses-list/${req.expensesListId}/expenses`, req
+    ).toPromise();
+  }
+
   deleteExpense(id: number): Promise<void> {
     return this.http.delete<void>(`${environment.apiUrl}/expense/${id}`).toPromise();
+  }
+
+  getExpensesListParticipants(listId: number): Promise<Participant[]> {
+    return this.http.get<Participant[]>(`${environment.apiUrl}/expenses-list/${listId}/participants`).toPromise();
   }
 }

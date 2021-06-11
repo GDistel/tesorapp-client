@@ -30,6 +30,14 @@ body {
   background-color: $color-primary;
 }
 
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  button:not(:first-child) {
+    margin-left: 8px;
+  }
+}
+
 
 // Material overrides
 
@@ -67,4 +75,8 @@ body {
 [mat-dialog-actions] {
   display: flex;
   justify-content: flex-end;
+}
+
+.mat-datepicker-toggle {
+  color: $color-primary !important;
 }

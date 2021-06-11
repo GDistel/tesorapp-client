@@ -1,8 +1,9 @@
 import { ExpensesListApiService } from './expenses-list-api.service';
 import { Injectable } from '@angular/core';
 import { BottomNavAction, PagedResponse } from '../shared';
-import { Expense } from './interfaces';
+import { Expense, CreateExpenseRequest } from './interfaces';
 import { ExpensesListAction } from './enums';
+import { Participant } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,14 @@ import { ExpensesListAction } from './enums';
 export class ExpensesListService {
 
   constructor(private expensesListApiSvc: ExpensesListApiService) { }
+
+  getExpensesListParticipants(listId: number): Promise<Participant[]> {
+    return this.expensesListApiSvc.getExpensesListParticipants(listId);
+  }
+
+  createExpense(req: CreateExpenseRequest): Promise<Expense> {
+    return this.expensesListApiSvc.createExpense(req);
+  }
 
   deleteExpense(id: number): Promise<void> {
     return this.expensesListApiSvc.deleteExpense(id);

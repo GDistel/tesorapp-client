@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="nav-container">
-  <button *ngIf="backLink; else appLogo" mat-icon-button [routerLink]="backLink">
+  <button *ngIf="backLink; else appLogo" mat-icon-button [routerLink]="backLink ?? '/'">
     <mat-icon>arrow_back_ios</mat-icon>
   </button>
   <span>{{ pageTitle }}</span>

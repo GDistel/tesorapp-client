@@ -1,1 +1,36 @@
-<p style="color: white">add-expense works!</p>
+<form [formGroup]="form" novalidate class="form">
+
+    <mat-form-field class="full-width" color="primary">
+      <input matInput placeholder="Expense name" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field class="full-width" color="primary">
+      <input matInput type="number" min="0" placeholder="Amount" formControlName="amount">
+    </mat-form-field>
+    <mat-form-field class="full-width" color="primary">
+      <input matInput placeholder="Date" [matDatepicker]="picker" formControlName="date">
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    </mat-form-field>
+    <mat-form-field class="full-width" color="primary">
+      <mat-label>Paid by</mat-label>
+      <mat-select formControlName="paidBy" required>
+        <mat-option *ngFor="let participant of listParticipants" [value]="participant.id">
+          {{ participant.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width" color="primary">
+      <mat-label>Destinataries</mat-label>
+      <mat-select formControlName="participantIds" multiple required>
+        <mat-option *ngFor="let participant of listParticipants" [value]="participant.id">
+          {{ participant.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+</form>
+
+<div class="form-actions">
+  <button mat-button color="primary" (click)="goBackToList()">cancel</button>
+  <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
+</div>

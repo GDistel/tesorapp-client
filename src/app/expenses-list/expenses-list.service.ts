@@ -1,7 +1,7 @@
 import { ExpensesListApiService } from './expenses-list-api.service';
 import { Injectable } from '@angular/core';
 import { BottomNavAction, PagedResponse } from '../shared';
-import { Expense, CreateExpenseRequest } from './interfaces';
+import { Expense, CreateExpenseRequest, ExpensesListResolution } from './interfaces';
 import { ExpensesListAction } from './enums';
 import { Participant } from './interfaces';
 
@@ -11,6 +11,10 @@ import { Participant } from './interfaces';
 export class ExpensesListService {
 
   constructor(private expensesListApiSvc: ExpensesListApiService) { }
+
+  getExpensesListResolution(listId: number): Promise<ExpensesListResolution> {
+    return this.expensesListApiSvc.getExpensesListResolution(listId);
+  }
 
   getExpensesListParticipants(listId: number): Promise<Participant[]> {
     return this.expensesListApiSvc.getExpensesListParticipants(listId);
@@ -31,7 +35,7 @@ export class ExpensesListService {
   getNavActions(): BottomNavAction[] {
     return [
       { id: ExpensesListAction.delete, icon: 'flash_on', activeIcon: 'clear' },
-      { id: ExpensesListAction.balance, icon: 'groups' },
+      { id: ExpensesListAction.listDetails, icon: 'visibility' },
       { id: ExpensesListAction.add, icon: 'add' }
     ];
   }

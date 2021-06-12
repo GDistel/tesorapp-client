@@ -32,7 +32,6 @@ export class ExpensesListsService {
   getNavActions(): BottomNavAction[] {
     return [
       { id: ExpensesListsAction.delete, icon: 'flash_on', activeIcon: 'clear' },
-      { id: ExpensesListsAction.share, icon: 'share' },
       { id: ExpensesListsAction.add, icon: 'add' },
     ];
   }

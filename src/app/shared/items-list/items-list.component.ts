@@ -20,6 +20,9 @@ export class ItemsListComponent {
   }
 
   onItemAction(item: any, event: MouseEvent): void {
+    if (!this.toggleAction) {
+      return;
+    }
     event.stopPropagation();
     this.itemActionClicked.emit(item);
   }

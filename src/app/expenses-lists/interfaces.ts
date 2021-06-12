@@ -1,3 +1,4 @@
+import { Participant } from '../expenses-list/interfaces';
 import { Currencies, ExpensesListStatus } from './enums';
 
 export interface ExpensesList {
@@ -6,7 +7,8 @@ export interface ExpensesList {
   description: string,
   status: ExpensesListStatus,
   currency: Currencies,
-  userId: number
+  userId: number,
+  participants?: Participant[]
 }
 
 export interface CreateExpensesListRequest {

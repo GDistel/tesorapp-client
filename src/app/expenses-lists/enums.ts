@@ -12,6 +12,5 @@ export enum Currencies {
 
 export const enum ExpensesListsAction {
   add = 0,
-  delete,
-  share
+  delete
 }

@@ -1,5 +1,5 @@
 export const enum ExpensesListAction {
-  balance = 0,
+  listDetails = 0,
   add,
   delete
 }

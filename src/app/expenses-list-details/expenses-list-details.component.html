@@ -1,0 +1,23 @@
+<div *ngIf="expensesList && listResolution" class="container">
+  <h2 class="color-primary">{{ expensesList.name }}</h2>
+  <p class="color-primary"><span class="subtitle">Currency:</span> {{ expensesList.currency }}</p>
+  <p class="color-primary"><span class="subtitle">Description:</span> {{ expensesList.description }}</p>
+  <mat-list>
+    <mat-list-item *ngFor="let participant of expensesList.participants">
+      <mat-icon mat-list-icon color="primary">person</mat-icon>
+      <div mat-line class="color-primary">
+        {{ participant.name }}
+      </div>
+      <div mat-line class="color-primary">
+        Total: {{ expensesList.currency }} {{ listResolution.status[participant.id] | number: '1.0-2' }}
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+  <hr class="primary-background color-primary">
+
+  <h2 class="color-primary">How to settle:</h2>
+</div>
+
+
+

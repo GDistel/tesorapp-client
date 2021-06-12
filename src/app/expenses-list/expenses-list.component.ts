@@ -60,6 +60,8 @@ export class ExpensesListComponent implements OnInit {
       this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'add-expense']);
     } else if (id === ExpensesListAction.delete) {
       this.toggleDeleteAction = !this.toggleDeleteAction;
+    } else if (id === ExpensesListAction.listDetails) {
+      this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'details']);
     }
   }
 

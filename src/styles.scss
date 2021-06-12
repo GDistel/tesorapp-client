@@ -80,3 +80,7 @@ body {
 .mat-datepicker-toggle {
   color: $color-primary !important;
 }
+
+.mat-pseudo-checkbox::after {
+  color: $color-grey-dark-1 !important;
+}

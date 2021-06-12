@@ -13,6 +13,11 @@ const routes: Routes = [
     path: ':id/add-expense',
     loadChildren: () => import('../add-expense/add-expense.module').then(m => m.AddExpenseModule)
   },
+  {
+    path: ':id/details',
+    loadChildren: () => import('../expenses-list-details/expenses-list-details.module')
+      .then(m => m.ExpensesListDetailsModule)
+  },
 ];
 
 @NgModule({

@@ -10,8 +10,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: ':id/add-expense',
-    loadChildren: () => import('../add-expense/add-expense.module').then(m => m.AddExpenseModule)
+    path: ':id/expense',
+    loadChildren: () => import('../expense-editor/expense-editor.module').then(m => m.ExpenseEditorModule)
   },
   {
     path: ':id/details',

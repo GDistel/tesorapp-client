@@ -53,14 +53,14 @@ export class ExpensesListComponent implements OnInit {
 
   onListItemClicked(listItem: IListItem): void {
     this.router.navigate(
-      ['/', 'expenses-list', this.expensesList.id, 'add-expense'],
+      ['/', 'expenses-list', this.expensesList.id, 'expense'],
       { queryParams: { expenseId: listItem.id }}
     );
   }
 
   onBottomNavActionClicked(id: ExpensesListAction): void {
     if (id === ExpensesListAction.add) {
-      this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'add-expense']);
+      this.router.navigate(['/', 'expenses-list', this.expensesList.id, 'expense']);
     } else if (id === ExpensesListAction.delete) {
       this.toggleDeleteAction = !this.toggleDeleteAction;
     } else if (id === ExpensesListAction.listDetails) {

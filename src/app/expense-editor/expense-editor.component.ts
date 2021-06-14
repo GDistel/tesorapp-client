@@ -1,4 +1,4 @@
-import { Expense } from './../expenses-list/interfaces';
+import { Expense } from '../expenses-list/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -7,11 +7,10 @@ import { CreateExpenseRequest, Participant } from '../expenses-list/interfaces';
 import { ExpensesListService } from '../expenses-list/expenses-list.service';
 
 @Component({
-  selector: 'app-add-expense',
-  templateUrl: './add-expense.component.html',
-  styleUrls: ['./add-expense.component.scss']
+  templateUrl: './expense-editor.component.html',
+  styleUrls: ['./expense-editor.component.scss']
 })
-export class AddExpenseComponent implements OnInit {
+export class ExpenseEditorComponent implements OnInit {
   form!: FormGroup;
   currencies!: string[];
   listParticipants!: Participant[];

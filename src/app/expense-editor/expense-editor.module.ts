@@ -1,22 +1,22 @@
+import { ExpenseEditorComponent } from './expense-editor.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AddExpenseRoutingModule } from './add-expense-routing.module';
-import { AddExpenseComponent } from './add-expense.component';
+import { ExpenseEditorRoutingModule } from './expense-editor-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    AddExpenseComponent
+    ExpenseEditorComponent
   ],
   imports: [
     SharedModule,
     ReactiveFormsModule,
-    AddExpenseRoutingModule,
+    ExpenseEditorRoutingModule,
     MatNativeDateModule,
     MatDatepickerModule,
   ]
 })
-export class AddExpenseModule { }
+export class ExpenseEditorModule { }

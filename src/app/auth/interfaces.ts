@@ -14,7 +14,7 @@ export interface Tokens {
 }
 
 export interface DecodedTokenPayload {
-  exp: number,
-  iat: number,
-  username: string
+  exp: number;
+  iat: number;
+  username: string;
 }

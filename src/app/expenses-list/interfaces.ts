@@ -1,13 +1,13 @@
 export interface Expense {
-  id: number,
-  name: string,
-  amount: number,
-  date: string,
-  paidBy: number,
-  type: string,
-  expensesListId: number,
-  userId: number,
-  participantIds: number[]
+  id: number;
+  name: string;
+  amount: number;
+  date: string;
+  paidBy: number;
+  type: string;
+  expensesListId: number;
+  userId: number;
+  participantIds: number[];
 }
 
 export interface Participant {
@@ -16,12 +16,12 @@ export interface Participant {
 }
 
 export interface CreateExpenseRequest {
-  name: string,
-  amount: number,
-  date: string,
-  paidBy: number,
-  participantIds: number[],
-  expensesListId: number
+  name: string;
+  amount: number;
+  date: string;
+  paidBy: number;
+  participantIds: number[];
+  expensesListId: number;
 }
 
 export interface ParticipantsDebtStatus {

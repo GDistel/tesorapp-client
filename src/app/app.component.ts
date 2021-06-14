@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
       .subscribe( event => {
         const navEndEvent = event as NavigationEnd;
         this.hideTopNav = navEndEvent.url.includes('/signin');
-      });
+      })
   }
 }

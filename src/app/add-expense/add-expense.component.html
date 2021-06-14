@@ -30,7 +30,12 @@
 
 </form>
 
-<div class="form-actions">
-  <button mat-button color="primary" (click)="goBackToList()">cancel</button>
+<div *ngIf="!editMode" class="form-actions">
+  <button mat-button color="primary" (click)="goBackToList()">back to list</button>
+  <button mat-stroked-button color="primary" (click)="onEnterEditMode()">edit</button>
+</div>
+
+<div *ngIf="editMode" class="form-actions">
+  <button mat-button color="primary" (click)="onCancel()">cancel</button>
   <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
 </div>

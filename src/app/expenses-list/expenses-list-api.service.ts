@@ -24,6 +24,10 @@ export class ExpensesListApiService {
     ).toPromise();
   }
 
+  getExpense(expenseId: string): Promise<Expense> {
+    return this.http.get<Expense>(`${environment.apiUrl}/expense/${expenseId}`).toPromise();
+  }
+
   createExpense(req: CreateExpenseRequest): Promise<Expense> {
     return this.http.post<Expense>(
       `${environment.apiUrl}/expenses-list/${req.expensesListId}/expenses`, req

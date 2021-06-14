@@ -52,7 +52,10 @@ export class ExpensesListComponent implements OnInit {
   }
 
   onListItemClicked(listItem: IListItem): void {
-    // this.router.navigate(['/', 'expenses-list', listItem.id]);
+    this.router.navigate(
+      ['/', 'expenses-list', this.expensesList.id, 'add-expense'],
+      { queryParams: { expenseId: listItem.id }}
+    );
   }
 
   onBottomNavActionClicked(id: ExpensesListAction): void {

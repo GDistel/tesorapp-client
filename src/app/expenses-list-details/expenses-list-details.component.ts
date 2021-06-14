@@ -31,4 +31,9 @@ export class ExpensesListDetailsComponent implements OnInit {
     this.listResolution = await this.expensesListSvc.getExpensesListResolution(listId);
   }
 
+  getReceiver(id: string): string | undefined {
+    const participant = this.expensesList.participants?.find(x => x.id === +id);
+    return participant?.name;
+  }
+
 }

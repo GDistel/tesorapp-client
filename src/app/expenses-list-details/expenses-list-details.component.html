@@ -1,4 +1,5 @@
 <div *ngIf="expensesList && listResolution" class="container">
+
   <h2 class="color-primary">{{ expensesList.name }}</h2>
   <p class="color-primary"><span class="subtitle">Currency:</span> {{ expensesList.currency }}</p>
   <p class="color-primary"><span class="subtitle">Description:</span> {{ expensesList.description }}</p>
@@ -17,6 +18,22 @@
   <hr class="primary-background color-primary">
 
   <h2 class="color-primary">How to settle:</h2>
+  <mat-list>
+    <ng-container *ngFor="let participant of expensesList.participants">
+      <ng-container *ngIf="listResolution.settle[participant.id].length">
+        <mat-list-item *ngFor="let settlement of listResolution.settle[participant.id]">
+          <mat-icon mat-list-icon color="primary">attach_money</mat-icon>
+          <div mat-line class="color-primary">
+            {{ participant.name }} pays {{ expensesList.currency }} {{ settlement.amount | number: '1.0-2' }}
+          </div>
+          <div mat-line class="color-primary">
+            to {{ getReceiver(settlement.payTo) }}
+          </div>
+        </mat-list-item>
+      </ng-container>
+    </ng-container>
+  </mat-list>
+
 </div>
 
 

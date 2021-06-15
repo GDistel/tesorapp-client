@@ -65,6 +65,18 @@ export class ExpenseEditorComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+    if (this.expense) {
+      await this.updateExpense();
+      return;
+    }
+    await this.createNewExpense();
+  }
+
+  async updateExpense(): Promise<void> {
+
+  }
+
+  async createNewExpense(): Promise<void> {
     const req: CreateExpenseRequest = { ...this.form.value, expensesListId: this.expensesListId };
     try {
       await this.expensesListSvc.createExpense(req);

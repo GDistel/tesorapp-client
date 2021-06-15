@@ -18,20 +18,31 @@
   <div formArrayName="participants">
     <p class="color-primary participants-section-title">Participants:</p>
     <div *ngFor="let participantControl of participants.controls; index as i" class="participant-control">
-      <button mat-icon-button type="button" color="primary" (click)="removeParticipant(i)" [disabled]="participants.controls.length === 2">
+      <button mat-icon-button type="button" color="primary" (click)="removeParticipant(i)"
+        [disabled]="(participants.controls.length === 2) || (i + 1 <= (expensesList?.participants?.length || 0))">
         <mat-icon>clear</mat-icon>
       </button>
       <mat-form-field class="full-width" color="primary">
         <input matInput type="text" [formControlName]="i" required placeholder="Name">
       </mat-form-field>
     </div>
-    <button mat-icon-button type="button" color="primary" (click)="addParticipant()">
+    <button mat-icon-button type="button" color="primary" (click)="addParticipant()" [disabled]="!editMode">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
 </form>
 
-<div class="form-actions">
-  <button mat-button color="primary" routerLink="/expenses-lists">cancel</button>
+<div *ngIf="!editMode" class="form-actions">
+  <button mat-button color="primary" (click)="goBackToList()">back to list</button>
+  <button mat-stroked-button color="primary" (click)="onEnterEditMode()">edit</button>
+</div>
+
+<div *ngIf="editMode" class="form-actions">
+  <button mat-button color="primary" (click)="onCancel()">cancel</button>
   <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
 </div>
+
+<!-- <div class="form-actions">
+  <button mat-button color="primary" routerLink="/expenses-lists">cancel</button>
+  <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
+</div> -->

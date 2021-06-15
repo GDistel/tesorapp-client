@@ -36,6 +36,10 @@ export class ExpensesListsService {
     ];
   }
 
+  updateExpensesList(req: CreateExpensesListRequest, id: string): Promise<ExpensesList> {
+    return this.expensesListsApiSvc.updateExpensesList(req, id);
+  }
+
   deleteExpensesList(id: number): Promise<void> {
     return this.expensesListsApiSvc.deleteExpensesList(id);
   }

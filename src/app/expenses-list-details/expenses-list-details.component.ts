@@ -37,7 +37,7 @@ export class ExpensesListDetailsComponent implements OnInit {
   }
 
   onEditExpensesList(): void {
-    this.router.navigate(['add-expenses-list'], { queryParams: { expensesListId: this.expensesList.id } });
+    this.router.navigate(['expenses-list-editor'], { queryParams: { expensesListId: this.expensesList.id } });
   }
 
 }

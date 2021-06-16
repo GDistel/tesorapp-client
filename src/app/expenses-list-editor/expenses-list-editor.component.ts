@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AddExpensesListParticipantRequest, CreateExpensesListRequest, ExpensesList } from './../expenses-lists/interfaces';
-import { ExpensesListsService } from './../expenses-lists/expenses-lists.service';
+import { AddExpensesListParticipantRequest, CreateExpensesListRequest, ExpensesList } from '../expenses-lists/interfaces';
+import { ExpensesListsService } from '../expenses-lists/expenses-lists.service';
 import { TopNavService } from '../core/top-nav/top-nav.service';
 import { Currencies } from '../expenses-lists/enums';
 import { Participant } from '../expenses-list/interfaces';
 
 @Component({
-  templateUrl: './add-expenses-list.component.html',
-  styleUrls: ['./add-expenses-list.component.scss']
+  templateUrl: './expenses-list-editor.component.html',
+  styleUrls: ['./expenses-list-editor.component.scss']
 })
-export class AddExpensesListComponent implements OnInit {
+export class ExpensesListEditorComponent implements OnInit {
   form!: FormGroup;
   currencies!: string[];
   expensesList!: ExpensesList;
@@ -35,6 +35,7 @@ export class AddExpensesListComponent implements OnInit {
       this.expensesList = await this.expensesListsSvc.getExpensesList(expensesListId);
       this.populateFormWithExpenseListData();
       this.topNavSvc.getTopNavTitleSubject().next('Edit expenses List');
+      this.topNavSvc.getTopNavBackLinkSubject().next(`/expenses-list/${this.expensesList.id}/details`);
     }
     this.currencies = Object.values(Currencies).filter(x => isNaN(+x)); // convert enum to array of values
   }
@@ -107,6 +108,10 @@ export class AddExpensesListComponent implements OnInit {
     }
     try {
       const expensesList = await this.expensesListsSvc.updateExpensesList(req, this.expensesList.id.toString());
+      this.editMode = false;
+      if (!this.form.value.participants?.length) {
+        return;
+      }
       // @TODO Implement the functionality to PUT participants
       for (const participant of this.form.value.participants) {
         const addParticipantReq: AddExpensesListParticipantRequest = {
@@ -150,7 +155,11 @@ export class AddExpensesListComponent implements OnInit {
   }
 
   goBackToList(): void {
-    this.router.navigateByUrl(`/expenses-lists`);
+    if (this.expensesList) {
+      this.router.navigate(['expenses-list', this.expensesList.id, 'details']);
+      return;
+    }
+    this.router.navigateByUrl('/expenses-lists');
   }
 
   onEnterEditMode(): void {

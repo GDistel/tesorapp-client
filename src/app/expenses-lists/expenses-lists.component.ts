@@ -49,7 +49,7 @@ export class ExpensesListsComponent implements OnInit {
 
   onBottomNavActionClicked(id: ExpensesListsAction): void {
     if (id === ExpensesListsAction.add) {
-      this.router.navigate(['/', 'add-expenses-list']);
+      this.router.navigate(['/', 'expenses-list-editor']);
     } else if (id === ExpensesListsAction.delete) {
       this.toggleDeleteAction = !this.toggleDeleteAction;
     }

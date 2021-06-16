@@ -15,8 +15,8 @@ const routes: Routes = [
     loadChildren: () => import('./expenses-lists/expenses-lists.module').then(m => m.ExpensesListsModule)
   },
   {
-    path: 'add-expenses-list',
-    loadChildren: () => import('./add-expenses-list/add-expenses-list.module').then(m => m.AddExpensesListModule)
+    path: 'expenses-list-editor',
+    loadChildren: () => import('./expenses-list-editor/expenses-list-editor.module').then(m => m.ExpensesListEditorModule)
   },
   {
     path: 'expenses-list',

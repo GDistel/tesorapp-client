@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TopNavService } from './../core/top-nav/top-nav.service';
-import { BottomNavAction, IListItem } from './../shared';
+import { BottomNavAction, IListItem, PagedRequest, PagedResponse } from './../shared';
 import { ExpensesListsAction } from './enums';
 import { ExpensesListsService } from './expenses-lists.service';
 import { ExpensesList } from './interfaces';
@@ -14,9 +14,9 @@ import { ExpensesList } from './interfaces';
   styleUrls: ['./expenses-lists.component.scss']
 })
 export class ExpensesListsComponent implements OnInit {
-  expensesLists!: ExpensesList[];
-  listItems!: IListItem[];
+  expensesListsResponse!: PagedResponse<ExpensesList[]>;
   bottomNavActions!: BottomNavAction[];
+  listItems: IListItem[] = [];
   toggleDeleteAction = false;
 
   constructor(
@@ -34,13 +34,18 @@ export class ExpensesListsComponent implements OnInit {
   }
 
   async setExpensesLists(): Promise<void> {
-    this.expensesLists = (await this.expensesListsSvc.getExpensesLists()).items;
-    this.listItems = this.expensesLists.map(expensesList => ({
+    this.expensesListsResponse = await this.expensesListsSvc.getExpensesLists();
+    this.mapExpensesListsToListItems();
+  }
+
+  mapExpensesListsToListItems(): void {
+    const newItems = this.expensesListsResponse.items.map(expensesList => ({
       id: expensesList.id,
       name: expensesList.name,
       description: expensesList.description,
       icon: 'list'
     }));
+    this.listItems = [...this.listItems, ...newItems];
   }
 
   onListItemClicked(listItem: IListItem): void {
@@ -66,6 +71,21 @@ export class ExpensesListsComponent implements OnInit {
         await this.expensesListsSvc.deleteExpensesList(listItem.id);
         await this.setExpensesLists();
       });
+  }
+
+  async fetchMoreItems(): Promise<void> {
+    if (this.expensesListsResponse.items.length < this.expensesListsResponse.limit) {
+      // there wouldn't be any more items to fetch
+      return;
+    }
+    const pagedRequest: PagedRequest = {
+      page: ++this.expensesListsResponse.page,
+      limit: this.expensesListsResponse.limit
+    };
+    this.expensesListsResponse = await this.expensesListsSvc.getExpensesLists(pagedRequest);
+    if (this.expensesListsResponse.items.length) {
+      this.mapExpensesListsToListItems();
+    }
   }
 
 }

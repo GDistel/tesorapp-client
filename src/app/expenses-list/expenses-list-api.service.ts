@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { PagedResponse } from 'src/app/shared';
+import { PagedRequest, PagedResponse } from 'src/app/shared';
 import { Participant, Expense, CreateExpenseRequest, ExpensesListResolution } from './interfaces';
 
 @Injectable({
@@ -17,8 +17,8 @@ export class ExpensesListApiService {
     ).toPromise();
   }
 
-  getExpenses(expensesListId: string): Promise<PagedResponse<Expense[]>> {
-    const params = { page: 1, limit: 10 };
+  getExpenses(expensesListId: string, pagedRequest?: PagedRequest): Promise<PagedResponse<Expense[]>> {
+    const params = { page: pagedRequest?.page ?? 1, limit: pagedRequest?.limit ?? 10 };
     return this.http.get<PagedResponse<Expense[]>>(
       `${environment.apiUrl}/expenses-list/${expensesListId}/expenses`, { params }
     ).toPromise();

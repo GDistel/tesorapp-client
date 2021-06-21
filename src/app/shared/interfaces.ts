@@ -6,6 +6,11 @@ export interface PagedResponse<T> {
   limit: number;
 }
 
+export interface PagedRequest {
+  page?: number;
+  limit?: number;
+}
+
 export interface IListItem {
   id: number;
   name: string;

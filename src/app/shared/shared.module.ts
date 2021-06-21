@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { MaterialModule } from './material.module';
 import { ItemsListComponent } from './items-list/items-list.component';
@@ -16,7 +17,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ScrollingModule
   ],
   exports: [
     CommonModule,

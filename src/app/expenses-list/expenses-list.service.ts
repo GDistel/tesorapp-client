@@ -1,3 +1,4 @@
+import { PagedRequest } from './../shared/interfaces';
 import { ExpensesListApiService } from './expenses-list-api.service';
 import { Injectable } from '@angular/core';
 import { BottomNavAction, PagedResponse } from '../shared';
@@ -28,8 +29,8 @@ export class ExpensesListService {
     return this.expensesListApiSvc.deleteExpense(id);
   }
 
-  getExpenses(expensesListId: string): Promise<PagedResponse<Expense[]>> {
-    return this.expensesListApiSvc.getExpenses(expensesListId);
+  getExpenses(expensesListId: string, pagedRequest?: PagedRequest): Promise<PagedResponse<Expense[]>> {
+    return this.expensesListApiSvc.getExpenses(expensesListId, pagedRequest);
   }
 
   getExpense(expenseId: string): Promise<Expense> {

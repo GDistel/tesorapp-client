@@ -1,6 +1,7 @@
 <app-items-list
   [items]="listItems" [toggleAction]="toggleDeleteAction" actionColor="warn"
-  (itemClicked)="onListItemClicked($event)" (itemActionClicked)="onItemActionClicked($event)">
+  (itemClicked)="onListItemClicked($event)" (itemActionClicked)="onItemActionClicked($event)"
+  (fetchMoreItems)="fetchMoreItems()">
 </app-items-list>
 
 <app-bottom-nav

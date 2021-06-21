@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AddExpensesListParticipantRequest, CreateExpensesListRequest, ExpensesList } from './interfaces';
-import { PagedResponse } from 'src/app/shared';
+import { PagedRequest, PagedResponse } from 'src/app/shared';
 
 
 @Injectable({
@@ -23,8 +23,8 @@ export class ExpensesListsApiService {
     return this.http.post<ExpensesList>(`${environment.apiUrl}/expenses-list`, req).toPromise();
   }
 
-  getExpensesLists(): Promise<PagedResponse<ExpensesList[]>> {
-    const params = { page: 1, limit: 10 };
+  getExpensesLists(pagedRequest?: PagedRequest): Promise<PagedResponse<ExpensesList[]>> {
+    const params = { page: pagedRequest?.page ?? 1, limit: pagedRequest?.limit ?? 10 };
     return this.http.get<PagedResponse<ExpensesList[]>>(`${environment.apiUrl}/expenses-list`, { params }).toPromise();
   }
 

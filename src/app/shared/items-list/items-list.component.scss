@@ -1,15 +1,7 @@
 @import 'src/variables';
 
 .container {
-  position: relative;
-}
-
-.list {
-  padding: 8px;
   height: calc(100vh - 72px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   overflow-y: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
@@ -17,6 +9,15 @@
   }
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+
+}
+
+.list {
+  padding: 8px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .list-item {
     cursor: pointer;
@@ -33,4 +34,11 @@
     }
   }
 
+}
+
+.spinner-item {
+  display: grid;
+  place-items: center;
+  margin-top: 10px;
+  margin-bottom: 72px;
 }

@@ -1,17 +1,23 @@
-<div class="container">
+<cdk-virtual-scroll-viewport #scroller itemSize="72" class="container">
 
   <mat-list class="list">
-    <mat-list-item *ngFor="let item of items" class="list-item" (click)="onListItemClicked(item)">
-      <h4 mat-line>{{ item.name }}</h4>
-      <span mat-line>{{ item.description }}</span>
-      <mat-icon [color]="toggleAction ? actionColor : 'primary'" class="list-item-icon"
-        (click)="onItemAction(item, $event)">
-        {{ toggleAction ? actionIcon : item.icon }}
-      </mat-icon>
-    </mat-list-item>
-    <!-- @ TODO remove this empty list-item when infinite scroll is working -->
-    <mat-list-item></mat-list-item>
+
+    <ng-container *cdkVirtualFor="let item of items">
+      <mat-list-item  class="list-item" (click)="onListItemClicked(item)">
+        <h4 mat-line>{{ item.name }}</h4>
+        <span mat-line>{{ item.description }}</span>
+        <mat-icon [color]="toggleAction ? actionColor : 'primary'" class="list-item-icon"
+          (click)="onItemAction(item, $event)">
+          {{ toggleAction ? actionIcon : item.icon }}
+        </mat-icon>
+      </mat-list-item>
+    </ng-container>
+
+    <div *ngIf="loading" class="spinner-item">
+      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+    </div>
+
   </mat-list>
 
-</div>
 
+</cdk-virtual-scroll-viewport>

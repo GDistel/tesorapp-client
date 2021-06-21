@@ -1,3 +1,5 @@
+import { PagedRequest } from './../shared/interfaces';
+import { PagedResponse } from 'src/app/shared';
 import { ExpensesListService } from './expenses-list.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,8 +20,8 @@ import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confi
 })
 export class ExpensesListComponent implements OnInit {
   expensesList!: ExpensesList;
-  expenses!: Expense[];
-  listItems!: IListItem[];
+  expensesResponse!: PagedResponse<Expense[]>;
+  listItems: IListItem[] = [];
   bottomNavActions!: BottomNavAction[];
   toggleDeleteAction = false;
 
@@ -42,13 +44,18 @@ export class ExpensesListComponent implements OnInit {
   }
 
   async setExpenses(): Promise<void> {
-    this.expenses = (await this.expensesListSvc.getExpenses(this.expensesList.id.toString())).items;
-    this.listItems = this.expenses.map(expense => ({
+    this.expensesResponse = await this.expensesListSvc.getExpenses(this.expensesList.id.toString());
+    this.mapExpensesToListItems();
+  }
+
+  mapExpensesToListItems(): void {
+    const newItems = this.expensesResponse.items.map(expense => ({
       id: expense.id,
       name: expense.name,
       description: `${this.expensesList.currency} ${expense.amount} - ${(new Date(expense.date)).toLocaleDateString()}`,
       icon: 'receipt_long'
     }));
+    this.listItems = [...this.listItems, ...newItems];
   }
 
   onListItemClicked(listItem: IListItem): void {
@@ -79,6 +86,21 @@ export class ExpensesListComponent implements OnInit {
         await this.expensesListSvc.deleteExpense(listItem.id);
         await this.setExpenses();
       });
+  }
+
+  async fetchMoreItems(): Promise<void> {
+    if (this.expensesResponse.items.length < this.expensesResponse.limit) {
+      // there wouldn't be any more items to fetch
+      return;
+    }
+    const pagedRequest: PagedRequest = {
+      page: ++this.expensesResponse.page,
+      limit: this.expensesResponse.limit
+    };
+    this.expensesResponse = await this.expensesListSvc.getExpenses(this.expensesList.id.toString(), pagedRequest);
+    if (this.expensesResponse.items.length) {
+      this.mapExpensesToListItems();
+    }
   }
 
 }

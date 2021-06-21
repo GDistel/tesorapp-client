@@ -18,6 +18,7 @@ export class ExpensesListsComponent implements OnInit {
   bottomNavActions!: BottomNavAction[];
   listItems: IListItem[] = [];
   toggleDeleteAction = false;
+  canFetchMoreItems = true;
 
   constructor(
     private router: Router,
@@ -76,6 +77,7 @@ export class ExpensesListsComponent implements OnInit {
   async fetchMoreItems(): Promise<void> {
     if (this.expensesListsResponse.items.length < this.expensesListsResponse.limit) {
       // there wouldn't be any more items to fetch
+      this.canFetchMoreItems = false;
       return;
     }
     const pagedRequest: PagedRequest = {

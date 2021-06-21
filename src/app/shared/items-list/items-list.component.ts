@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, Output, ViewChild, AfterViewInit, NgZone, OnChanges, SimpleChanges
+  Component, EventEmitter, Input, Output, ViewChild, AfterViewInit, NgZone, OnChanges, SimpleChanges, SimpleChange
 } from '@angular/core';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
@@ -9,11 +9,12 @@ import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss']
 })
-export class ItemsListComponent implements AfterViewInit {
+export class ItemsListComponent implements AfterViewInit, OnChanges {
   @Input() items!: any[];
   @Input() actionIcon = 'delete';
   @Input() actionColor: 'primary' | 'accent' | 'warn' = 'primary';
   @Input() toggleAction = false;
+  @Input() canFetchMoreItems = true;
   @Output() itemClicked = new EventEmitter<any>();
   @Output() itemActionClicked = new EventEmitter<any>();
   @Output() fetchMoreItems = new EventEmitter<void>();
@@ -34,11 +35,18 @@ export class ItemsListComponent implements AfterViewInit {
     });
   }
 
+  ngOnChanges(change: SimpleChanges): void {
+    if (change.items || !this.canFetchMoreItems) {
+      this.loading = false;
+    }
+  }
+
   fetchMore(): void {
     this.ngZone.run(() => {
-      this.loading = true;
-      this.fetchMoreItems.next();
-      setTimeout(() => this.loading = false);
+      if (this.canFetchMoreItems) {
+        this.loading = true;
+        this.fetchMoreItems.next();
+      }
     });
   }
 

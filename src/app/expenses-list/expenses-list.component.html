@@ -1,5 +1,6 @@
 <app-items-list
-  [items]="listItems" [toggleAction]="toggleDeleteAction" actionColor="warn"
+  [items]="listItems" [canFetchMoreItems]="canFetchMoreItems"
+  [toggleAction]="toggleDeleteAction" actionColor="warn"
   (itemClicked)="onListItemClicked($event)" (itemActionClicked)="onItemActionClicked($event)"
   (fetchMoreItems)="fetchMoreItems()">
 </app-items-list>

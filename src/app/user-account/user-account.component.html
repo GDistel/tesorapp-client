@@ -1,1 +1,12 @@
-<p style="color: white">User account here</p>
+<mat-list>
+  <mat-list-item>
+    <mat-icon mat-list-icon color="primary">person</mat-icon>
+    <div mat-line class="color-primary">
+      Username: {{ username }}
+    </div>
+  </mat-list-item>
+</mat-list>
+<div class="user-actions-container">
+  <button mat-raised-button color="primary" (click)="back()"><mat-icon matPrefix>arrow_back</mat-icon>back</button>
+  <button mat-raised-button color="primary" (click)="signOut()"><mat-icon matPrefix>logout</mat-icon>sign out</button>
+</div>

@@ -26,11 +26,13 @@ export class AuthComponent implements OnInit {
   }
 
   async onSignin(): Promise<void> {
+    this.loading = true;
     const signedIn = await this.authSvc.signIn(this.authRequest);
     if (!signedIn) {
       this.signInError = true;
       return;
     }
+    this.loading = false;
     this.router.navigate(['']);
   }
 

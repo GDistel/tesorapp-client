@@ -16,7 +16,7 @@ import { ExpensesList } from './interfaces';
 export class ExpensesListsComponent implements OnInit {
   expensesListsResponse!: PagedResponse<ExpensesList[]>;
   bottomNavActions!: BottomNavAction[];
-  listItems: IListItem[] = [];
+  listItems!: IListItem[];
   toggleDeleteAction = false;
   canFetchMoreItems = true;
 
@@ -35,6 +35,8 @@ export class ExpensesListsComponent implements OnInit {
   }
 
   async setExpensesLists(): Promise<void> {
+    this.listItems = [];
+    this.canFetchMoreItems = true;
     this.expensesListsResponse = await this.expensesListsSvc.getExpensesLists();
     this.mapExpensesListsToListItems();
   }

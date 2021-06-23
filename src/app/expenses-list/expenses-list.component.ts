@@ -21,7 +21,7 @@ import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confi
 export class ExpensesListComponent implements OnInit {
   expensesList!: ExpensesList;
   expensesResponse!: PagedResponse<Expense[]>;
-  listItems: IListItem[] = [];
+  listItems!: IListItem[];
   bottomNavActions!: BottomNavAction[];
   toggleDeleteAction = false;
   canFetchMoreItems = true;
@@ -45,6 +45,8 @@ export class ExpensesListComponent implements OnInit {
   }
 
   async setExpenses(): Promise<void> {
+    this.listItems = [];
+    this.canFetchMoreItems = true;
     this.expensesResponse = await this.expensesListSvc.getExpenses(this.expensesList.id.toString());
     this.mapExpensesToListItems();
   }

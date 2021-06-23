@@ -1,7 +1,7 @@
 <div class="container">
   <div class="auth-form-container mat-elevation-z12">
     <img src="assets/tesorapp_logo.svg" alt="logo" class="logo">
-    <div class="form">
+    <div *ngIf="!loading; else spinner" class="form">
       <mat-form-field color="primary">
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="authRequest.username">
@@ -14,3 +14,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #spinner>
+  <mat-progress-spinner class="spinner" [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+</ng-template>

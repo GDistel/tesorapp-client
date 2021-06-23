@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport #scroller itemSize="72" class="container">
 
-  <mat-list class="list">
+  <mat-list *ngIf="items.length || loading; else noItems" class="list">
 
     <ng-container *cdkVirtualFor="let item of items">
       <mat-list-item  class="list-item" (click)="onListItemClicked(item)">
@@ -19,5 +19,8 @@
 
   </mat-list>
 
-
 </cdk-virtual-scroll-viewport>
+
+<ng-template #noItems>
+  <p class="color-primary no-items">This list is empty</p>
+</ng-template>

@@ -1,4 +1,4 @@
-<div *ngIf="expensesList && listResolution" class="container">
+<div *ngIf="expensesList" class="container">
 
   <h2 class="expensest-list-name color-primary">{{ expensesList.name }}
     <button mat-mini-fab color="primary" (click)="onEditExpensesList()"><mat-icon>edit</mat-icon></button>
@@ -11,8 +11,8 @@
       <div mat-line class="color-primary">
         {{ participant.name }}
       </div>
-      <div mat-line class="color-primary">
-        Total: {{ expensesList.currency }} {{ listResolution.status[participant.id] | number: '1.0-2' }}
+      <div *ngIf="listResolution" mat-line class="color-primary">
+        Total: {{ expensesList.currency }} {{ (listResolution.status[participant.id] || 0) | number: '1.0-2' }}
       </div>
     </mat-list-item>
   </mat-list>
@@ -20,7 +20,7 @@
   <hr class="primary-background color-primary">
 
   <h2 class="color-primary">How to settle:</h2>
-  <mat-list>
+  <mat-list *ngIf="listResolution; else noExpenses">
     <ng-container *ngFor="let participant of expensesList.participants">
       <ng-container *ngIf="listResolution.settle[participant.id].length">
         <mat-list-item *ngFor="let settlement of listResolution.settle[participant.id]">
@@ -37,6 +37,10 @@
   </mat-list>
 
 </div>
+
+<ng-template #noExpenses>
+  <p class="color-primary">There are no expenses to settle</p>
+</ng-template>
 
 
 

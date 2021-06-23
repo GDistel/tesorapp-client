@@ -12,6 +12,7 @@ import { AuthContext } from './enums';
 export class AuthComponent implements OnInit {
   authRequest!: AuthRequest;
   signInError = false;
+  loading = false;
 
   constructor(private authSvc: AuthService, private router: Router) { }
 

@@ -20,7 +20,7 @@ export class ItemsListComponent implements AfterViewInit, OnChanges {
   @Output() fetchMoreItems = new EventEmitter<void>();
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
-  loading = false;
+  loading = true;
 
   constructor(private ngZone: NgZone) { }
 
@@ -36,7 +36,7 @@ export class ItemsListComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges): void {
-    if (change.items || !this.canFetchMoreItems) {
+    if (change.items.currentValue.length || !this.canFetchMoreItems) {
       this.loading = false;
     }
   }

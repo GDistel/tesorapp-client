@@ -52,6 +52,9 @@ export class ExpensesListComponent implements OnInit {
   }
 
   mapExpensesToListItems(): void {
+    if (!this.expensesResponse.items.length) {
+      this.canFetchMoreItems = false;
+    }
     const newItems = this.expensesResponse.items.map(expense => ({
       id: expense.id,
       name: expense.name,

@@ -13,7 +13,7 @@ import { ExpensesList } from '../expenses-lists/interfaces';
 })
 export class ExpensesListDetailsComponent implements OnInit {
   expensesList!: ExpensesList;
-  listResolution!: ExpensesListResolution;
+  listResolution!: ExpensesListResolution | null;
 
   constructor(
     private topNavSvc: TopNavService,
@@ -28,7 +28,11 @@ export class ExpensesListDetailsComponent implements OnInit {
     const listId = this.route.snapshot.params.id;
     this.topNavSvc.getTopNavBackLinkSubject().next(`/expenses-list/${listId}`);
     this.expensesList = await this.expensesListsSvc.getExpensesList(listId);
-    this.listResolution = await this.expensesListSvc.getExpensesListResolution(listId);
+    try {
+      this.listResolution = await this.expensesListSvc.getExpensesListResolution(listId);
+    } catch(err) {
+      this.listResolution = null;
+    }
   }
 
   getReceiver(id: string): string | undefined {

@@ -21,7 +21,7 @@ export class AuthComponent implements OnInit {
       context: AuthContext.signIn,
       username: '',
       password: '',
-      remember: false
+      remember: true
     };
   }
 

@@ -88,3 +88,11 @@ body {
 .mat-pseudo-checkbox::after {
   color: $color-grey-dark-1 !important;
 }
+
+.mat-checkbox .mat-checkbox-checkmark-path {
+  stroke: $color-grey-dark-1 !important;
+}
+
+.mat-checkbox .mat-checkbox-frame {
+  border-color: $color-primary !important;
+}

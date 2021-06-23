@@ -20,7 +20,7 @@ export class AuthService {
   public async signIn(authRequest: AuthRequest): Promise<boolean> {
     try {
       const tokens = await this.authApiSvc.signIn(authRequest);
-      this.tokensSvc.setTokens(tokens);
+      this.tokensSvc.setTokens(tokens, authRequest.remember);
       this.snackBar.open('You have successfully logged in', '', { duration: 3000 });
       return !!tokens;
     } catch (error) {

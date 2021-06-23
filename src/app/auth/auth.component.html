@@ -10,6 +10,11 @@
         <mat-label>Password</mat-label>
         <input matInput type="password" [(ngModel)]="authRequest.password">
       </mat-form-field>
+      <div class="extra-actions-container">
+        <mat-checkbox color="primary" [(ngModel)]="authRequest.remember">
+          <span class="color-primary">Remember me</span>
+        </mat-checkbox>
+      </div>
       <button mat-raised-button color="primary" class="form-action full-width" (click)="onSignin()">sign in</button>
     </div>
   </div>

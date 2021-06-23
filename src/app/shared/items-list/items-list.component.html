@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport #scroller itemSize="72" class="container">
 
-  <mat-list *ngIf="items.length || loading; else noItems" class="list">
+  <mat-list *ngIf="items?.length || loading; else noItems" class="list">
 
     <ng-container *cdkVirtualFor="let item of items">
       <mat-list-item  class="list-item" (click)="onListItemClicked(item)">

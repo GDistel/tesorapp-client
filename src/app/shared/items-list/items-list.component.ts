@@ -36,7 +36,7 @@ export class ItemsListComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges): void {
-    if (change.items.currentValue.length || !this.canFetchMoreItems) {
+    if (change.items?.currentValue?.length || !this.canFetchMoreItems) {
       this.loading = false;
     }
   }

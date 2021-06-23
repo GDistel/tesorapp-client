@@ -50,7 +50,7 @@ export class TokensService {
   }
 
   public getTokensFromStorage(): Tokens | undefined {
-    const stringTokens = sessionStorage.getItem(this._storageKey) || localStorage.removeItem(this._storageKey);
+    const stringTokens = sessionStorage.getItem(this._storageKey) || localStorage.getItem(this._storageKey);
     if (!stringTokens) {
       this.tokens = null;
       return;

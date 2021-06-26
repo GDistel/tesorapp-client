@@ -22,4 +22,7 @@
 
 <ng-template #spinner>
   <mat-progress-spinner class="spinner" [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+  <p *ngIf="showWaitMessage" class="color-primary wait-message">
+    Hang tight, this is taking a bit longer than expected
+  </p>
 </ng-template>

@@ -37,6 +37,10 @@ export class ExpensesListService {
     return this.expensesListApiSvc.getExpense(expenseId);
   }
 
+  updateExpense(req: Partial<CreateExpenseRequest>, expenseId: number): Promise<Expense> {
+    return this.expensesListApiSvc.updateExpense(req, expenseId);
+  }
+
   getNavActions(): BottomNavAction[] {
     return [
       { id: ExpensesListAction.delete, icon: 'flash_on', activeIcon: 'clear' },

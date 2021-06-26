@@ -28,6 +28,10 @@ export class ExpensesListApiService {
     return this.http.get<Expense>(`${environment.apiUrl}/expense/${expenseId}`).toPromise();
   }
 
+  updateExpense(req: Partial<CreateExpenseRequest>, expenseId: number): Promise<Expense> {
+    return this.http.patch<Expense>(`${environment.apiUrl}/expense/${expenseId}`, req).toPromise();
+  }
+
   createExpense(req: CreateExpenseRequest): Promise<Expense> {
     return this.http.post<Expense>(
       `${environment.apiUrl}/expenses-list/${req.expensesListId}/expenses`, req

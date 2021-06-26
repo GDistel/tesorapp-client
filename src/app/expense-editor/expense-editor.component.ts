@@ -73,7 +73,13 @@ export class ExpenseEditorComponent implements OnInit {
   }
 
   async updateExpense(): Promise<void> {
-
+    const req: Partial<CreateExpenseRequest> = {
+      expensesListId: this.expensesListId,
+      ...this.form.value
+    };
+    this.expense = await this.expensesListSvc.updateExpense(req, this.expense.id);
+    this.editMode = false;
+    this.form.disable();
   }
 
   async createNewExpense(): Promise<void> {

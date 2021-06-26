@@ -21,7 +21,7 @@ export interface CreateExpenseRequest {
   date: string;
   paidBy: number;
   participantIds: number[];
-  expensesListId: number;
+  expensesListId?: number;
 }
 
 export interface ParticipantsDebtStatus {

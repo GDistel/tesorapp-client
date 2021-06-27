@@ -109,6 +109,7 @@ export class ExpensesListEditorComponent implements OnInit {
     try {
       const expensesList = await this.expensesListsSvc.updateExpensesList(req, this.expensesList.id.toString());
       this.editMode = false;
+      this.form.disable();
       if (!this.form.value.participants?.length) {
         return;
       }

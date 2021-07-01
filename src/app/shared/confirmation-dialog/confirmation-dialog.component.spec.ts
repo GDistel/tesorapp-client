@@ -5,7 +5,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { queryAllDebugElem, queryDebugElem } from '../test-utils';
 
-fdescribe('ConfirmationDialogComponent', () => {
+describe('ConfirmationDialogComponent', () => {
   let component: ConfirmationDialogComponent;
   let fixture: ComponentFixture<ConfirmationDialogComponent>;
 

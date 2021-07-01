@@ -1,9 +1,9 @@
-<cdk-virtual-scroll-viewport #scroller itemSize="72" class="container">
+<cdk-virtual-scroll-viewport #scroller [itemSize]="itemSize" class="container">
 
   <mat-list *ngIf="items?.length || loading; else noItems" class="list">
 
     <ng-container *cdkVirtualFor="let item of items">
-      <mat-list-item  class="list-item" (click)="onListItemClicked(item)">
+      <mat-list-item class="list-item" (click)="onListItemClicked(item)">
         <h4 mat-line>{{ item.name }}</h4>
         <span mat-line>{{ item.description }}</span>
         <mat-icon [color]="toggleAction ? actionColor : 'primary'" class="list-item-icon"

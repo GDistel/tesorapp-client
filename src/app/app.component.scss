@@ -1,9 +1,10 @@
-// .app-wrapper {
-//   background-color: var(--color-grey-dark-1);
-//   max-width: 500px;
-//   position: relative;
-//   margin: auto;
-//   @media (min-width: 501px) {
-//     border: 8px solid var(--color-primary);
-//   }
-// }
+.app-wrapper {
+  height: 98vh;
+  background-color: var(--color-grey-dark-1);
+  max-width: 500px;
+  position: relative;
+  margin: auto;
+  @media (min-width: 501px) {
+    border: 8px solid var(--color-primary);
+  }
+}

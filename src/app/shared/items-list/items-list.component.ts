@@ -38,7 +38,7 @@ export class ItemsListComponent implements AfterViewInit, OnChanges, OnDestroy {
       filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
       throttleTime(200),
       takeUntil(this.destroy$)
-    ).subscribe({ next: this.fetchMore });
+    ).subscribe({ next: this.fetchMore.bind(this) });
   }
 
   ngOnChanges(change: SimpleChanges): void {

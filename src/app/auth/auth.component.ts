@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { AuthRequest } from './interfaces';
 import { AuthContext } from './enums';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -15,9 +16,19 @@ export class AuthComponent implements OnInit {
   loading = false;
   showWaitMessage = false;
 
-  constructor(private authSvc: AuthService, private router: Router) { }
+  constructor(
+    private authSvc: AuthService, private router: Router, private activatedRoute: ActivatedRoute
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const refreshToken = this.activatedRoute.snapshot.queryParams.refreshToken;
+    if (refreshToken) {
+      this.loading = true;
+      this.authSvc.signInWithRefreshToken(refreshToken).pipe(first()).subscribe({
+        next: () => this.router.navigate(['']),
+        error: () => this.signInError
+      });
+    }
     this.authRequest = {
       context: AuthContext.signIn,
       username: '',

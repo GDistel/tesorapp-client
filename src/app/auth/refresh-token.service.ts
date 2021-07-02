@@ -31,9 +31,9 @@ export class RefreshTokenService {
     );
   }
 
-  public requestTokenRefresh(): Observable<Tokens> {
+  public requestTokenRefresh(refreshToken?: string): Observable<Tokens> {
     const tokens = this.tokensService.getTokensFromStorage() as Tokens;
-    return this.authApiSvc.refreshToken(tokens?.refresh);
+    return this.authApiSvc.refreshToken(refreshToken ?? tokens?.refresh);
   }
 
   public tokenNeedsRefresh(): boolean{

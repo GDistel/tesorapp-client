@@ -5,7 +5,7 @@ body {
   margin: 0;
   font-family: 'Nunito', sans-serif;
   font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
-  background: rgb(33,66,99);
+  background-color: $color-grey-dark-1;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }

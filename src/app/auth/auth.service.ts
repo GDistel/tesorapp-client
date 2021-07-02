@@ -1,9 +1,12 @@
+import { RefreshTokenService } from 'src/app/auth/refresh-token.service';
 import { AuthApiService } from './auth-api.service';
 import { Injectable } from '@angular/core';
 import { TokensService } from './tokens.service';
-import { AuthRequest } from './interfaces';
+import { AuthRequest, Tokens } from './interfaces';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, first, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +15,7 @@ export class AuthService {
 
   constructor(
     private tokensSvc: TokensService,
+    private refreshTokenSvc: RefreshTokenService,
     private authApiSvc: AuthApiService,
     private router: Router,
     private snackBar: MatSnackBar
@@ -41,5 +45,17 @@ export class AuthService {
 
   public getUser(): string {
     return this.tokensSvc.accessTokenPayload?.username;
+  }
+
+  public signInWithRefreshToken(token: string): Subject<void> {
+    const successSubject = new Subject<void>();
+    this.refreshTokenSvc.requestTokenRefresh(token).pipe(
+      tap(tokens => successSubject.next()),
+      first()
+    ).subscribe({
+      next: this.tokensSvc.setTokens.bind(this.tokensSvc),
+      error: successSubject.error
+    });
+    return successSubject;
   }
 }

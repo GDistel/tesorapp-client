@@ -110,11 +110,12 @@ export class ExpensesListEditorComponent implements OnInit {
       const expensesList = await this.expensesListsSvc.updateExpensesList(req, this.expensesList.id.toString());
       this.editMode = false;
       this.form.disable();
-      if (!this.form.value.participants?.length) {
+      const participantsToAdd = this.getParticipantsToBeAdded();
+      if (!participantsToAdd.length) {
         return;
       }
       // @TODO Implement the functionality to PUT participants
-      for (const participant of this.form.value.participants) {
+      for (const participant of participantsToAdd) {
         const addParticipantReq: AddExpensesListParticipantRequest = {
           name: participant, listId: expensesList.id
         };
@@ -123,6 +124,10 @@ export class ExpensesListEditorComponent implements OnInit {
     } catch(error) {
       console.error(error);
     }
+  }
+
+  getParticipantsToBeAdded(): string[] {
+    return this.form.value.participants.slice(this.expensesList.participants?.length ?? 0)
   }
 
   async createNewExpensesList(): Promise<void> {

@@ -1,43 +1,46 @@
-<form [formGroup]="form" novalidate class="form">
+<div class="container">
+  <form [formGroup]="form" novalidate class="form">
 
-  <div formGroupName="expensesList">
-    <mat-form-field class="full-width" color="primary">
-      <input matInput placeholder="Name" formControlName="name" required>
-    </mat-form-field>
-    <mat-form-field class="full-width" color="primary">
-      <input matInput placeholder="Description" formControlName="description">
-    </mat-form-field>
-    <mat-form-field class="full-width" color="primary">
-      <mat-label>Currency</mat-label>
-      <mat-select formControlName="currency" required value="USD">
-        <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div formArrayName="participants">
-    <p class="color-primary participants-section-title">Participants:</p>
-    <div *ngFor="let participantControl of participants.controls; index as i" class="participant-control">
-      <button mat-icon-button type="button" color="primary" (click)="removeParticipant(i)"
-        [disabled]="(participants.controls.length === 2) || (i + 1 <= (expensesList?.participants?.length || 0)) || !editMode">
-        <mat-icon>clear</mat-icon>
-      </button>
+    <div formGroupName="expensesList">
       <mat-form-field class="full-width" color="primary">
-        <input matInput type="text" [formControlName]="i" required placeholder="Name">
+        <input matInput placeholder="Name" formControlName="name" required>
+      </mat-form-field>
+      <mat-form-field class="full-width" color="primary">
+        <input matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+      <mat-form-field class="full-width" color="primary">
+        <mat-label>Currency</mat-label>
+        <mat-select formControlName="currency" required value="USD">
+          <mat-option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
-    <button mat-icon-button type="button" color="primary" (click)="addParticipant()" [disabled]="!editMode">
-      <mat-icon>add_circle</mat-icon>
-    </button>
+
+    <div formArrayName="participants">
+      <p class="color-primary participants-section-title">Participants:</p>
+      <div *ngFor="let participantControl of participants.controls; index as i" class="participant-control">
+        <button mat-icon-button type="button" color="primary" (click)="removeParticipant(i)"
+          [disabled]="(participants.controls.length === 2) || (i + 1 <= (expensesList?.participants?.length || 0)) || !editMode">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <mat-form-field class="full-width" color="primary">
+          <input matInput type="text" [formControlName]="i" required placeholder="Name">
+        </mat-form-field>
+      </div>
+      <button mat-icon-button type="button" color="primary" (click)="addParticipant()" [disabled]="!editMode">
+        <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="!editMode" class="form-actions">
+    <button mat-button color="primary" (click)="goBackToList()">back</button>
+    <button mat-stroked-button color="primary" (click)="onEnterEditMode()">edit</button>
   </div>
-</form>
 
-<div *ngIf="!editMode" class="form-actions">
-  <button mat-button color="primary" (click)="goBackToList()">back</button>
-  <button mat-stroked-button color="primary" (click)="onEnterEditMode()">edit</button>
+  <div *ngIf="editMode" class="form-actions">
+    <button mat-button color="primary" (click)="onCancel()">cancel</button>
+    <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
+  </div>
 </div>
 
-<div *ngIf="editMode" class="form-actions">
-  <button mat-button color="primary" (click)="onCancel()">cancel</button>
-  <button mat-raised-button color="primary" (click)="onFormSubmit()">submit</button>
-</div>

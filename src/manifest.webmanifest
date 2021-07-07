@@ -1,6 +1,6 @@
 {
-  "name": "tesorapp-client",
-  "short_name": "tesorapp-client",
+  "name": "Tesorapp",
+  "short_name": "Tesorapp",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

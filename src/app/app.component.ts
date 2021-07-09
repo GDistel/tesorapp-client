@@ -16,9 +16,9 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe( event => {
+      .subscribe(event => {
         const navEndEvent = event as NavigationEnd;
         this.hideTopNav = navEndEvent.url.includes('/signin');
-      })
+      });
   }
 }

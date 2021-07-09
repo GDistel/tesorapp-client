@@ -1,12 +1,23 @@
-import { TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BehaviorSubject } from 'rxjs';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  const routerEvent$ = new BehaviorSubject<RouterEvent>({id: 0, url: ''});
+  let router: Router;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        CoreModule
       ],
       declarations: [
         AppComponent
@@ -14,22 +25,33 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'tesorapp-client'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('tesorapp-client');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('tesorapp-client app is running!');
+  });
+
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should hide the top navigation when the router navigates to the sign-in screen', () => {
+    let topNavElem: DebugElement;
+    router = TestBed.inject(Router);
+    (<any>router).events = routerEvent$.asObservable();
+    expect(component.hideTopNav).toBeFalse();
+    topNavElem = getTopNavElem(fixture.debugElement);
+    expect(topNavElem.nativeElement.getAttribute('hidden')).toBe(null);
+    routerEvent$.next(new NavigationEnd(1, '/expenses-lists', ''));
+    routerEvent$.next(new NavigationEnd(2, '/signin', ''));
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.hideTopNav).toBeTrue();
+    topNavElem = getTopNavElem(fixture.debugElement);
+    expect(topNavElem.nativeElement.getAttribute('hidden')).toBe('');
   });
 });
+
+function getTopNavElem(rootDebugElem: DebugElement): DebugElement {
+  return rootDebugElem.query(By.css('app-top-nav'));
+}

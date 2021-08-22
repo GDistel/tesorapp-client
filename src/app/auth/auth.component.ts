@@ -15,6 +15,8 @@ export class AuthComponent implements OnInit {
   signInError = false;
   loading = false;
   showWaitMessage = false;
+  reTypedPassword!: string;
+  passwordsMatch!: boolean;
 
   constructor(
     private authSvc: AuthService, private router: Router, private activatedRoute: ActivatedRoute
@@ -29,12 +31,19 @@ export class AuthComponent implements OnInit {
         error: () => this.signInError
       });
     }
+    this.resetFields();
+  }
+
+  resetFields(): void {
     this.authRequest = {
       context: AuthContext.signIn,
       username: '',
       password: '',
+      email: '',
       remember: true
     };
+    this.passwordsMatch = true;
+    this.reTypedPassword = '';
   }
 
   async onSignin(): Promise<void> {
@@ -47,6 +56,38 @@ export class AuthComponent implements OnInit {
     }
     this.loading = false;
     this.router.navigate(['']);
+  }
+
+  async onSignUp(): Promise<void> {
+    if (!this.passwordsMatch) {
+      return;
+    }
+    this.loading = true;
+    const signedUp = await this.authSvc.signUp(this.authRequest);
+    this.loading = false;
+    if (signedUp) {
+      this.resetFields();
+    } else {
+      this.signInError = true;
+    }
+  }
+
+  onMainContextAction(): void {
+    if (this.authRequest.context === AuthContext.signIn) {
+      this.onSignin();
+      return;
+    }
+    this.onSignUp();
+  }
+
+  onSwitchContext(): void {
+    this.authRequest.context = this.authRequest.context === AuthContext.signUp
+      ? AuthContext.signIn
+      : AuthContext.signUp;
+  }
+
+  onPasswordRetype(): void {
+    this.passwordsMatch = this.authRequest.password === this.reTypedPassword;
   }
 
 }

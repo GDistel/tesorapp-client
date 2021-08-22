@@ -19,6 +19,12 @@ export class AuthApiService {
     return this.http.post<Tokens>(`${environment.apiUrl}/auth/signin`, requestBody).toPromise();
   }
 
+  signUp(authRequest: AuthRequest): Promise<void> {
+    const { username, password, email, verifyUrl } = authRequest;
+    const requestBody = { username, password, email, verifyUrl };
+    return this.http.post<void>(`${environment.apiUrl}/auth/signup`, requestBody).toPromise();
+  }
+
   refreshToken(refreshToken: string): Observable<Tokens> {
     return this.http.get<Tokens>(
       `${environment.apiUrl}/auth/refresh?token=${refreshToken}`

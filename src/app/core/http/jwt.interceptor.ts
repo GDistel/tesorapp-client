@@ -59,9 +59,8 @@ export class JwtInterceptor implements HttpInterceptor {
 
   private isAuthRouteOrThirdParty(url: string): boolean {
     const isThirdPartyUrl: boolean = !url.startsWith(environment.apiUrl);
-    const isSignInUrl: boolean = url.includes('auth/signin');
-    const isTokenRefreshUrl: boolean = url.includes('auth/refresh');
-    return isSignInUrl || isTokenRefreshUrl || isThirdPartyUrl ;
+    const isAuthUrl: boolean = url.includes('auth/');
+    return isAuthUrl || isThirdPartyUrl ;
 
   }
 

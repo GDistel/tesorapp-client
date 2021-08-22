@@ -7,16 +7,32 @@
         <mat-label>Username</mat-label>
         <input matInput [(ngModel)]="authRequest.username">
       </mat-form-field>
+      <mat-form-field *ngIf="authRequest.context === 'sign up'" color="primary">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="authRequest.email">
+      </mat-form-field>
       <mat-form-field color="primary">
         <mat-label>Password</mat-label>
         <input matInput type="password" [(ngModel)]="authRequest.password">
       </mat-form-field>
-      <div class="extra-actions-container">
+      <mat-form-field *ngIf="authRequest.context === 'sign up'" color="primary">
+        <mat-label>Re-type password</mat-label>
+        <input matInput type="password" [(ngModel)]="reTypedPassword" (keyup)="onPasswordRetype()">
+      </mat-form-field>
+      <span *ngIf="(authRequest.context === 'sign up') && !passwordsMatch" class="error">
+        Passwords do not match
+      </span>
+      <div *ngIf="authRequest.context === 'sign in'" class="extra-actions-container">
         <mat-checkbox color="primary" [(ngModel)]="authRequest.remember">
           <span class="color-primary">Remember me</span>
         </mat-checkbox>
       </div>
-      <button mat-raised-button color="primary" class="form-action full-width" (click)="onSignin()">sign in</button>
+      <button mat-raised-button color="primary" class="form-action full-width" (click)="onMainContextAction()">
+        {{ authRequest.context }}
+      </button>
+      <div class="context-switch-link color-primary pointer" (click)="onSwitchContext()">
+        Or <b>click here</b> to {{ authRequest.context === 'sign in' ? 'sign up' : 'sign in' }}
+      </div>
     </div>
   </div>
 </div>

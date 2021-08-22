@@ -6,5 +6,6 @@
   margin: auto;
   @media (min-width: 501px) {
     border: 8px solid var(--color-primary);
+    box-shadow: 0 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }

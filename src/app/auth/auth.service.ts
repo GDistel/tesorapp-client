@@ -33,6 +33,18 @@ export class AuthService {
     return false;
   }
 
+  public async signUp(authRequest: AuthRequest): Promise<boolean> {
+    try {
+      authRequest.verifyUrl = `${window.origin}/signin?refreshToken=`;
+      await this.authApiSvc.signUp(authRequest);
+      this.snackBar.open('Check your inbox and confirm your email', '', { duration: 5000 });
+      return true;
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  }
+
   public signOut(): void {
     this.tokensSvc.setTokens(null);
     this.router.navigate(['/', 'signin']);

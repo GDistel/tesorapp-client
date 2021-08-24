@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { filter, first, tap } from "rxjs/operators";
+import { BehaviorSubject, EMPTY, Observable } from "rxjs";
+import { catchError, filter, first, tap } from "rxjs/operators";
 import { AuthApiService } from "src/app/auth/auth-api.service";
+import { AuthService } from "./auth.service";
 import { Tokens } from "./interfaces";
 import { TokensService } from "./tokens.service";
 
@@ -12,7 +13,10 @@ export class RefreshTokenService {
   private tokenRefreshInProgress = false;
   private refreshAccessTokenSubject = new BehaviorSubject<Tokens | null>(null);
 
-  constructor(private tokensService: TokensService, private authApiSvc: AuthApiService) { }
+  constructor(
+    private tokensService: TokensService, private authApiSvc: AuthApiService,
+    private authService: AuthService
+  ) { }
 
   public refreshAccessToken(): Observable<Tokens>{
     return this.requestTokenRefresh().pipe(
@@ -21,6 +25,10 @@ export class RefreshTokenService {
         this.tokenRefreshInProgress = false;
         this.refreshAccessTokenSubject.next(tokens);
       }),
+      catchError(err => {
+        this.authService.signOut();
+        return EMPTY;
+      })
     )
   }
 

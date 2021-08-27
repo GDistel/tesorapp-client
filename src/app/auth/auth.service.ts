@@ -45,10 +45,10 @@ export class AuthService {
     return false;
   }
 
-  public signOut(): void {
+  public signOut(message?: string): void {
     this.tokensSvc.setTokens(null);
     this.router.navigate(['/', 'signin']);
-    this.snackBar.open('Your have been logged out', '', { duration: 3000 });
+    this.snackBar.open(message || 'You have been logged out', '', { duration: 3000 });
   }
 
   public isUserAuthenticated(): boolean {

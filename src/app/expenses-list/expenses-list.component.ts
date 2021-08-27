@@ -47,7 +47,7 @@ export class ExpensesListComponent implements OnInit {
   async setExpenses(): Promise<void> {
     this.listItems = [];
     this.canFetchMoreItems = true;
-    this.expensesResponse = await this.expensesListSvc.getExpenses(this.expensesList.id.toString());
+    this.expensesResponse = await this.expensesListSvc.getExpenses(this.expensesList?.id.toString());
     this.mapExpensesToListItems();
   }
 

@@ -22,6 +22,9 @@
       <span *ngIf="(authRequest.context === 'sign up') && !passwordsMatch" class="error">
         Passwords do not match
       </span>
+      <span *ngIf="(authRequest.context === 'sign in') && signInError" class="error">
+        Invalid credentials
+      </span>
       <div *ngIf="authRequest.context === 'sign in'" class="extra-actions-container">
         <mat-checkbox color="primary" [(ngModel)]="authRequest.remember">
           <span class="color-primary">Remember me</span>

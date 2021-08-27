@@ -28,7 +28,10 @@ export class AuthComponent implements OnInit {
       this.loading = true;
       this.authSvc.signInWithRefreshToken(refreshToken).pipe(first()).subscribe({
         next: () => this.router.navigate(['']),
-        error: () => this.signInError
+        error: () => {
+          this.loading = false;
+          this.signInError = true;
+        }
       });
     }
     this.resetFields();
@@ -50,11 +53,11 @@ export class AuthComponent implements OnInit {
     this.loading = true;
     setTimeout(() => this.showWaitMessage = true, 3500);
     const signedIn = await this.authSvc.signIn(this.authRequest);
+    this.loading = false;
     if (!signedIn) {
       this.signInError = true;
       return;
     }
-    this.loading = false;
     this.router.navigate(['']);
   }
 
